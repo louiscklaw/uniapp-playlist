@@ -148,6 +148,7 @@
     },
     "h5" : {
         "template" : "template.h5.html",
+        "publicPath" : "/uniapp-playlist/hello-uni-app-tryout/",
         "router" : {
             "mode" : "history",
             "base" : ""
