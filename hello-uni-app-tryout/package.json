@@ -46,7 +46,8 @@
     "test:ios": "cross-env UNI_PLATFORM=app-plus UNI_OS_NAME=ios jest -i",
     "test:mp-baidu": "cross-env UNI_PLATFORM=mp-baidu jest -i",
     "test:mp-weixin": "cross-env UNI_PLATFORM=mp-weixin jest -i",
-    "gitUpdate":"git add . && git commit -m\"update hello-uni-app-tryout,\""
+    "gitUpdate":"git add . && git commit -m\"update hello-uni-app-tryout,\"",
+    "deploy": "npx gh-pages -d ./dist/build/h5"
   },
   "dependencies": {
     "@dcloudio/uni-app": "2.0.2-3090620231104001",
