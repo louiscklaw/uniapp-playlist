@@ -1,4 +1,5 @@
 {
+	
 	"name": "",
 	"appid": "",
 	"description": "",
@@ -71,5 +72,28 @@
     },
     "mp-qq" : {
         "usingComponents" : true
-    }
+    },
+		"h5" : {
+			"title" : "加载中",
+			"domain" : "https://louiscklaw.github.io/uniapp-playlist/",
+			"router" : {
+					"base" : "/uniapp-playlist/hello_default-tryout//",
+					"mode" : "history"
+			},
+			"publicPath" : "/uniapp-playlist/hello_default-tryout//",
+			"devServer" : {
+					"https" : false,
+					"port" : 8080,
+					"proxy" : {
+							"/api" : {
+									"target" : "https://louiscklaw.github.io",
+									"changeOrigin" : true,
+									"secure" : false,
+									"pathRewrite" : {
+											"^/api" : "/api/"
+									}
+							}
+					}
+			}
+	}
 }
