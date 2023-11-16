@@ -10,6 +10,14 @@ services:
     working_dir: /app
     # command: sleep infinity
     command: ./entry.sh
+    deploy:
+      resources:
+        limits:
+          cpus: '0.1'
+          memory: 1G
+        reservations:
+          cpus: '0.0001'
+          memory: 32M
 
   mall-app-web:
     image: node:20-buster
@@ -20,3 +28,12 @@ services:
     working_dir: /app
     # command: sleep infinity
     command: ./entry.sh
+
+    deploy:
+      resources:
+        limits:
+          cpus: '0.1'
+          memory: 1G
+        reservations:
+          cpus: '0.0001'
+          memory: 32M
