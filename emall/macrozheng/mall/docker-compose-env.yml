@@ -207,8 +207,8 @@ services:
       - /etc/localtime:/etc/localtime
     environment:
       - 'TZ="Asia/Shanghai"'
-    #可以用db这个域名访问mysql服务
     external_links:
+      #可以用db这个域名访问mysql服务
       - mysql:db
     deploy:
       resources:
