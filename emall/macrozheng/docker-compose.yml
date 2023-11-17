@@ -4,7 +4,7 @@ services:
   mall-admin-web:
     image: node:14-buster
     ports:
-      - 8089:8090
+      - 8090:8090
     volumes:
       - ./mall-admin-web:/app
     working_dir: /app
@@ -13,13 +13,13 @@ services:
     deploy:
       resources:
         reservations:
-          cpus: '0.0001'
+          cpus: '0.01'
           memory: 32M
 
   mall-app-web:
     image: node:20-buster
     ports:
-      - 8088:8080
+      - 8088:8088
     volumes:
       - ./app-test-migrate:/app
     working_dir: /app
@@ -29,5 +29,5 @@ services:
     deploy:
       resources:
         reservations:
-          cpus: '0.0001'
+          cpus: '0.01'
           memory: 32M

@@ -30,4 +30,4 @@ logging:
 
 host:
   mall:
-   admin: http://localhost:8080
+    admin: http://localhost:8080

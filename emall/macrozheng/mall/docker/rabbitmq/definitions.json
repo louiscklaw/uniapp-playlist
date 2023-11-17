@@ -8,18 +8,14 @@
       "name": "guest",
       "password_hash": "VwDx0HUzE+8XXZZp1VcCUGy487GXzddEzV6fW5odte6qtbjA",
       "hashing_algorithm": "rabbit_password_hashing_sha256",
-      "tags": [
-        "administrator"
-      ],
+      "tags": ["administrator"],
       "limits": {}
     },
     {
       "name": "mall",
       "password_hash": "6HXIGRikyYgjW4Mn9zLuwdTeELyWcx99JM8MRJnmTPMkvW37",
       "hashing_algorithm": "rabbit_password_hashing_sha256",
-      "tags": [
-        "administrator"
-      ],
+      "tags": ["administrator"],
       "limits": {}
     }
   ],

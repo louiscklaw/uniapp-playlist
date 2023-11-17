@@ -8,9 +8,9 @@
 ## Eclipse
 
 - 导入项目，以maven项目形式导入  
-    ![eclipse_import_1.png](https://github.com/macrozheng/mall/blob/master/document/resource/eclipse_import_1.png)  
-    ![eclipse_import_2.png](https://github.com/macrozheng/mall/blob/master/document/resource/eclipse_import_2.png)
-- 安装lombok插件，下载地址：https://projectlombok.org/downloads/lombok.jar  
+   ![eclipse_import_1.png](https://github.com/macrozheng/mall/blob/master/document/resource/eclipse_import_1.png)  
+   ![eclipse_import_2.png](https://github.com/macrozheng/mall/blob/master/document/resource/eclipse_import_2.png)
+- 安装lombok插件，下载地址：https://projectlombok.org/downloads/lombok.jar
 - 下载完后双击，使用java程序打开
 - 按照提示选择eclipse.exe的安装路径安装插件，完成后重启Eclipse
 - 启动项目：右击com.macro.mall.MallAdminApplication的main方法，选择run as Java Application
@@ -35,7 +35,7 @@
 - 下载.zip包后解压即可，运行bin\kibana.bat，访问http://localhost:5601 查看是否安装成功
 - 中文分词插件地址：https://github.com/medcl/elasticsearch-analysis-ik
 - 安装中文分词插件，在elasticsearch-6.2.2\bin目录下执行以下命令：
-elasticsearch-plugin install https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v6.2.2/elasticsearch-analysis-ik-6.2.2.zip
+  elasticsearch-plugin install https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v6.2.2/elasticsearch-analysis-ik-6.2.2.zip
 - 启动elasticsearch:运行elasticsearch-6.2.2\bin\elasticsearch.bat
 - 不使用kibana的可以安装head插件，具体参考：https://github.com/mobz/elasticsearch-head
 - 注意：如果你修改了mall-search中的es的cluster-name: mall-es，你需要在elasticsearch-6.2.2\config\elasticsearch.yml文件中修改cluster.name: mall-es
@@ -47,13 +47,13 @@ elasticsearch-plugin install https://github.com/medcl/elasticsearch-analysis-ik/
 - 服务端运行程序：mongodb\bin\mongod.exe
 - 客户端运行程序：mongodb\bin\mongo.exe
 - 创建配置文件：mongodb\mongod.cfg
-    ``` lua
-    systemLog:
-        destination: file
-        path: c:\mongodb\data\log\mongod.log
-    storage:
-        dbPath: c:\mongodb\data\db
-    ```
+  ```lua
+  systemLog:
+      destination: file
+      path: c:\mongodb\data\log\mongod.log
+  storage:
+      dbPath: c:\mongodb\data\db
+  ```
 - 安装为服务（运行命令需要用管理员权限）：C:\mongodb\bin\mongod.exe --config "C:\mongodb\mongod.cfg" --install
 - 启动服务：net start MongoDB
 - 关闭服务：net stop MongoDB
@@ -70,16 +70,16 @@ elasticsearch-plugin install https://github.com/medcl/elasticsearch-analysis-ik/
 - 访问地址查看是否安装成功：http://127.0.0.1:15672/
 - 输入账号密码登录：guest guest
 - 创建用户并设置其角色为管理员：mall mall
-    ![rabbitmq_install_2.png](https://github.com/macrozheng/mall/blob/master/document/resource/rabbitmq_install_2.png)
+  ![rabbitmq_install_2.png](https://github.com/macrozheng/mall/blob/master/document/resource/rabbitmq_install_2.png)
 - 创建virtual host:/mall
-    ![rabbitmq_install_3.png](https://github.com/macrozheng/mall/blob/master/document/resource/rabbitmq_install_3.png)
+  ![rabbitmq_install_3.png](https://github.com/macrozheng/mall/blob/master/document/resource/rabbitmq_install_3.png)
 - 给mall用户配置范围该virtual host的权限
-    ![rabbitmq_install_4.png](https://github.com/macrozheng/mall/blob/master/document/resource/rabbitmq_install_4.png)
+  ![rabbitmq_install_4.png](https://github.com/macrozheng/mall/blob/master/document/resource/rabbitmq_install_4.png)
 - rabbitmq安装延迟消息插件（可不装）：
-    - 下载延迟消息插件（rabbitmq_delayed_message_exchange）：https://www.rabbitmq.com/community-plugins.html
-    - 复制插件到插件目录：D:\RabbitMQ Server\rabbitmq_server-3.7.14\plugins
-    - 在sbin目录下运行如下命令启用插件：rabbitmq-plugins enable rabbitmq_delayed_message_exchange
-    
+  - 下载延迟消息插件（rabbitmq_delayed_message_exchange）：https://www.rabbitmq.com/community-plugins.html
+  - 复制插件到插件目录：D:\RabbitMQ Server\rabbitmq_server-3.7.14\plugins
+  - 在sbin目录下运行如下命令启用插件：rabbitmq-plugins enable rabbitmq_delayed_message_exchange
+
 ## OSS
 
 - 该项目文件上传采用OSS，需要自行注册OSS账号并配置

@@ -49,4 +49,3 @@ alipay:
   appPrivateKey: your appPrivateKey
   returnUrl: http://localhost:8060/#/pages/money/paySuccess
   notifyUrl:
-

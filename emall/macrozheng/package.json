@@ -1,0 +1,16 @@
+{
+  "name": "macrozheng",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dc_admin_bash": "docker compose exec -it mall-admin-web bash",
+    "dc_app_bash": "docker compose exec -it mall-app-web bash",
+    "dc_log":"docker compose logs -f"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}

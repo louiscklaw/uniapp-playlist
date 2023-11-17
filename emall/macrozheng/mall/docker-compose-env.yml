@@ -1,5 +1,4 @@
 services:
-
   elasticsearch:
     image: elasticsearch:7.17.3
     container_name: elasticsearch
@@ -21,7 +20,7 @@ services:
     deploy:
       resources:
         reservations:
-          cpus: '0.01'
+          cpus: "0.01"
 
   logstash:
     image: logstash:7.17.3
@@ -42,7 +41,7 @@ services:
     deploy:
       resources:
         reservations:
-          cpus: '0.01'
+          cpus: "0.01"
 
   mysql:
     # image: mysql:5.7
@@ -64,10 +63,9 @@ services:
     deploy:
       resources:
         reservations:
-          cpus: '0.01'
+          cpus: "0.01"
     depends_on:
       - elasticsearch
-
 
   rabbitmq:
     # image: rabbitmq:3.10-management
@@ -82,7 +80,7 @@ services:
     deploy:
       resources:
         reservations:
-          cpus: '0.01'
+          cpus: "0.01"
     depends_on:
       - elasticsearch
 
@@ -101,7 +99,7 @@ services:
     deploy:
       resources:
         reservations:
-          cpus: '0.01'
+          cpus: "0.01"
     depends_on:
       - elasticsearch
 
@@ -116,7 +114,7 @@ services:
     deploy:
       resources:
         reservations:
-          cpus: '0.01'
+          cpus: "0.01"
     depends_on:
       - elasticsearch
 
@@ -135,7 +133,7 @@ services:
     deploy:
       resources:
         reservations:
-          cpus: '0.01'
+          cpus: "0.01"
     depends_on:
       - elasticsearch
 
@@ -149,7 +147,7 @@ services:
     deploy:
       resources:
         reservations:
-          cpus: '0.01'
+          cpus: "0.01"
     depends_on:
       - elasticsearch
 
@@ -161,7 +159,7 @@ services:
       - elasticsearch:es
     depends_on:
       - elasticsearch
-     
+
     environment:
       #设置访问elasticsearch的地址
       - "elasticsearch.hosts=http://es:9200"
@@ -170,7 +168,7 @@ services:
     deploy:
       resources:
         reservations:
-          cpus: '0.01'
+          cpus: "0.01"
 
   mall-portal:
     image: 192.168.10.61:5000/mall/mall-portal:1.0-SNAPSHOT
@@ -190,7 +188,7 @@ services:
     deploy:
       resources:
         reservations:
-          cpus: '0.01'
+          cpus: "0.01"
     depends_on:
       - redis
       - mongo
@@ -215,7 +213,7 @@ services:
     deploy:
       resources:
         reservations:
-          cpus: '0.01'
+          cpus: "0.01"
 
   mall-search:
     image: 192.168.10.61:5000/mall/mall-search:1.0-SNAPSHOT
