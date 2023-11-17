@@ -50,15 +50,15 @@ const defaultMenu = {
   name: "",
   icon: "",
   hidden: 0,
-  sort: 0,
+  sort: 0
 };
 export default {
   name: "MenuDetail",
   props: {
     isEdit: {
       type: Boolean,
-      default: false,
-    },
+      default: false
+    }
   },
   data() {
     return {
@@ -71,8 +71,8 @@ export default {
             min: 2,
             max: 140,
             message: "长度在 2 到 140 个字符",
-            trigger: "blur",
-          },
+            trigger: "blur"
+          }
         ],
         name: [
           { required: true, message: "请输入前端名称", trigger: "blur" },
@@ -80,8 +80,8 @@ export default {
             min: 2,
             max: 140,
             message: "长度在 2 到 140 个字符",
-            trigger: "blur",
-          },
+            trigger: "blur"
+          }
         ],
         icon: [
           { required: true, message: "请输入前端图标", trigger: "blur" },
@@ -89,15 +89,15 @@ export default {
             min: 2,
             max: 140,
             message: "长度在 2 到 140 个字符",
-            trigger: "blur",
-          },
-        ],
-      },
+            trigger: "blur"
+          }
+        ]
+      }
     };
   },
   created() {
     if (this.isEdit) {
-      getMenu(this.$route.query.id).then((response) => {
+      getMenu(this.$route.query.id).then(response => {
         this.menu = response.data;
       });
     } else {
@@ -107,36 +107,36 @@ export default {
   },
   methods: {
     getSelectMenuList() {
-      fetchList(0, { pageSize: 100, pageNum: 1 }).then((response) => {
+      fetchList(0, { pageSize: 100, pageNum: 1 }).then(response => {
         this.selectMenuList = response.data.list;
         this.selectMenuList.unshift({ id: 0, title: "无上级菜单" });
       });
     },
     onSubmit(formName) {
-      this.$refs[formName].validate((valid) => {
+      this.$refs[formName].validate(valid => {
         if (valid) {
           this.$confirm("是否提交数据", "提示", {
             confirmButtonText: "确定",
             cancelButtonText: "取消",
-            type: "warning",
+            type: "warning"
           }).then(() => {
             if (this.isEdit) {
-              updateMenu(this.$route.query.id, this.menu).then((response) => {
+              updateMenu(this.$route.query.id, this.menu).then(response => {
                 this.$message({
                   message: "修改成功",
                   type: "success",
-                  duration: 1000,
+                  duration: 1000
                 });
                 this.$router.back();
               });
             } else {
-              createMenu(this.menu).then((response) => {
+              createMenu(this.menu).then(response => {
                 this.$refs[formName].resetFields();
                 this.resetForm(formName);
                 this.$message({
                   message: "提交成功",
                   type: "success",
-                  duration: 1000,
+                  duration: 1000
                 });
                 this.$router.back();
               });
@@ -146,7 +146,7 @@ export default {
           this.$message({
             message: "验证失败",
             type: "error",
-            duration: 1000,
+            duration: 1000
           });
           return false;
         }
@@ -156,8 +156,8 @@ export default {
       this.$refs[formName].resetFields();
       this.menu = Object.assign({}, defaultMenu);
       this.getSelectMenuList();
-    },
-  },
+    }
+  }
 };
 </script>
 

@@ -1,5 +1,4 @@
 <template>
-   
   <div class="app-container">
     <el-card class="operate-container" shadow="never">
       <i class="el-icon-tickets"></i>
@@ -218,14 +217,14 @@ import {
   fetchList,
   createFlashProductRelation,
   deleteFlashProductRelation,
-  updateFlashProductRelation,
+  updateFlashProductRelation
 } from "@/api/flashProductRelation";
 import { fetchList as fetchProductList } from "@/api/product";
 const defaultListQuery = {
   pageNum: 1,
-  pageSize: 5,
+  pageSize: 10,
   flashPromotionId: null,
-  flashPromotionSessionId: null,
+  flashPromotionSessionId: null
 };
 export default {
   name: "flashPromotionProductRelationList",
@@ -244,19 +243,18 @@ export default {
         listQuery: {
           keyword: null,
           pageNum: 1,
-          pageSize: 5,
-        },
+          pageSize: 10
+        }
       },
       editDialogVisible: false,
       flashProductRelation: {
-        product: {},
-      },
+        product: {}
+      }
     };
   },
   created() {
     this.listQuery.flashPromotionId = this.$route.query.flashPromotionId;
-    this.listQuery.flashPromotionSessionId =
-      this.$route.query.flashPromotionSessionId;
+    this.listQuery.flashPromotionSessionId = this.$route.query.flashPromotionSessionId;
     this.getList();
   },
   methods: {
@@ -281,12 +279,12 @@ export default {
       this.$confirm("是否要删除该商品?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning",
+        type: "warning"
       }).then(() => {
-        deleteFlashProductRelation(row.id).then((response) => {
+        deleteFlashProductRelation(row.id).then(response => {
           this.$message({
             type: "success",
-            message: "删除成功!",
+            message: "删除成功!"
           });
           this.getList();
         });
@@ -312,7 +310,7 @@ export default {
         this.$message({
           message: "请选择一条记录",
           type: "warning",
-          duration: 1000,
+          duration: 1000
         });
         return;
       }
@@ -321,21 +319,21 @@ export default {
         selectProducts.push({
           productId: this.dialogData.multipleSelection[i].id,
           flashPromotionId: this.listQuery.flashPromotionId,
-          flashPromotionSessionId: this.listQuery.flashPromotionSessionId,
+          flashPromotionSessionId: this.listQuery.flashPromotionSessionId
         });
       }
       this.$confirm("使用要进行添加操作?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning",
+        type: "warning"
       }).then(() => {
-        createFlashProductRelation(selectProducts).then((response) => {
+        createFlashProductRelation(selectProducts).then(response => {
           this.selectDialogVisible = false;
           this.dialogData.multipleSelection = [];
           this.getList();
           this.$message({
             type: "success",
-            message: "添加成功!",
+            message: "添加成功!"
           });
         });
       });
@@ -344,15 +342,15 @@ export default {
       this.$confirm("是否要确认?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning",
+        type: "warning"
       }).then(() => {
         updateFlashProductRelation(
           this.flashProductRelation.id,
-          this.flashProductRelation,
-        ).then((response) => {
+          this.flashProductRelation
+        ).then(response => {
           this.$message({
             message: "修改成功！",
-            type: "success",
+            type: "success"
           });
           this.editDialogVisible = false;
           this.getList();
@@ -361,19 +359,19 @@ export default {
     },
     getList() {
       this.listLoading = true;
-      fetchList(this.listQuery).then((response) => {
+      fetchList(this.listQuery).then(response => {
         this.listLoading = false;
         this.list = response.data.list;
         this.total = response.data.total;
       });
     },
     getDialogList() {
-      fetchProductList(this.dialogData.listQuery).then((response) => {
+      fetchProductList(this.dialogData.listQuery).then(response => {
         this.dialogData.list = response.data.list;
         this.dialogData.total = response.data.total;
       });
-    },
-  },
+    }
+  }
 };
 </script>
 <style scoped>

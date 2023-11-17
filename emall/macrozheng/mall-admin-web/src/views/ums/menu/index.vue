@@ -105,9 +105,9 @@ export default {
       listLoading: true,
       listQuery: {
         pageNum: 1,
-        pageSize: 5,
+        pageSize: 10
       },
-      parentId: 0,
+      parentId: 0
     };
   },
   created() {
@@ -118,7 +118,7 @@ export default {
     $route(route) {
       this.resetParentId();
       this.getList();
-    },
+    }
   },
   methods: {
     resetParentId() {
@@ -134,7 +134,7 @@ export default {
     },
     getList() {
       this.listLoading = true;
-      fetchList(this.parentId, this.listQuery).then((response) => {
+      fetchList(this.parentId, this.listQuery).then(response => {
         this.listLoading = false;
         this.list = response.data.list;
         this.total = response.data.total;
@@ -150,11 +150,11 @@ export default {
       this.getList();
     },
     handleHiddenChange(index, row) {
-      updateHidden(row.id, { hidden: row.hidden }).then((response) => {
+      updateHidden(row.id, { hidden: row.hidden }).then(response => {
         this.$message({
           message: "修改成功",
           type: "success",
-          duration: 1000,
+          duration: 1000
         });
       });
     },
@@ -168,18 +168,18 @@ export default {
       this.$confirm("是否要删除该菜单", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning",
+        type: "warning"
       }).then(() => {
-        deleteMenu(row.id).then((response) => {
+        deleteMenu(row.id).then(response => {
           this.$message({
             message: "删除成功",
             type: "success",
-            duration: 1000,
+            duration: 1000
           });
           this.getList();
         });
       });
-    },
+    }
   },
   filters: {
     levelFilter(value) {
@@ -195,8 +195,8 @@ export default {
       } else {
         return true;
       }
-    },
-  },
+    }
+  }
 };
 </script>
 

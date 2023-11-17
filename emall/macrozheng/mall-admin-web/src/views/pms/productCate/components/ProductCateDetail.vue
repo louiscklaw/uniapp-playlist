@@ -90,7 +90,7 @@ import {
   fetchList,
   createProductCate,
   updateProductCate,
-  getProductCate,
+  getProductCate
 } from "@/api/productCate";
 import { fetchListWithAttr } from "@/api/productAttrCate";
 import { getProductAttrInfo } from "@/api/productAttr";
@@ -106,7 +106,7 @@ const defaultProductCate = {
   productUnit: "",
   showStatus: 0,
   sort: 0,
-  productAttributeIdList: [],
+  productAttributeIdList: []
 };
 export default {
   name: "ProductCateDetail",
@@ -114,8 +114,8 @@ export default {
   props: {
     isEdit: {
       type: Boolean,
-      default: false,
-    },
+      default: false
+    }
   },
   data() {
     return {
@@ -128,24 +128,24 @@ export default {
             min: 2,
             max: 140,
             message: "长度在 2 到 140 个字符",
-            trigger: "blur",
-          },
-        ],
+            trigger: "blur"
+          }
+        ]
       },
       filterAttrs: [],
       filterProductAttrList: [
         {
-          value: [],
-        },
-      ],
+          value: []
+        }
+      ]
     };
   },
   created() {
     if (this.isEdit) {
-      getProductCate(this.$route.query.id).then((response) => {
+      getProductCate(this.$route.query.id).then(response => {
         this.productCate = response.data;
       });
-      getProductAttrInfo(this.$route.query.id).then((response) => {
+      getProductAttrInfo(this.$route.query.id).then(response => {
         if (response.data != null && response.data.length > 0) {
           this.filterProductAttrList = [];
           for (let i = 0; i < response.data.length; i++) {
@@ -153,8 +153,8 @@ export default {
               key: Date.now() + i,
               value: [
                 response.data[i].attributeCategoryId,
-                response.data[i].attributeId,
-              ],
+                response.data[i].attributeId
+              ]
             });
           }
         }
@@ -167,13 +167,13 @@ export default {
   },
   methods: {
     getSelectProductCateList() {
-      fetchList(0, { pageSize: 100, pageNum: 1 }).then((response) => {
+      fetchList(0, { pageSize: 100, pageNum: 1 }).then(response => {
         this.selectProductCateList = response.data.list;
         this.selectProductCateList.unshift({ id: 0, name: "无上级分类" });
       });
     },
     getProductAttrCateList() {
-      fetchListWithAttr().then((response) => {
+      fetchListWithAttr().then(response => {
         let list = response.data;
         for (let i = 0; i < list.length; i++) {
           let productAttrCate = list[i];
@@ -189,14 +189,14 @@ export default {
             ) {
               children.push({
                 label: productAttrCate.productAttributeList[j].name,
-                value: productAttrCate.productAttributeList[j].id,
+                value: productAttrCate.productAttributeList[j].id
               });
             }
           }
           this.filterAttrs.push({
             label: productAttrCate.name,
             value: productAttrCate.id,
-            children: children,
+            children: children
           });
         }
       });
@@ -213,36 +213,34 @@ export default {
       return productAttributeIdList;
     },
     onSubmit(formName) {
-      this.$refs[formName].validate((valid) => {
+      this.$refs[formName].validate(valid => {
         if (valid) {
           this.$confirm("是否提交数据", "提示", {
             confirmButtonText: "确定",
             cancelButtonText: "取消",
-            type: "warning",
+            type: "warning"
           }).then(() => {
             if (this.isEdit) {
-              this.productCate.productAttributeIdList =
-                this.getProductAttributeIdList();
+              this.productCate.productAttributeIdList = this.getProductAttributeIdList();
               updateProductCate(this.$route.query.id, this.productCate).then(
-                (response) => {
+                response => {
                   this.$message({
                     message: "修改成功",
                     type: "success",
-                    duration: 1000,
+                    duration: 1000
                   });
                   this.$router.back();
-                },
+                }
               );
             } else {
-              this.productCate.productAttributeIdList =
-                this.getProductAttributeIdList();
-              createProductCate(this.productCate).then((response) => {
+              this.productCate.productAttributeIdList = this.getProductAttributeIdList();
+              createProductCate(this.productCate).then(response => {
                 this.$refs[formName].resetFields();
                 this.resetForm(formName);
                 this.$message({
                   message: "提交成功",
                   type: "success",
-                  duration: 1000,
+                  duration: 1000
                 });
               });
             }
@@ -251,7 +249,7 @@ export default {
           this.$message({
             message: "验证失败",
             type: "error",
-            duration: 1000,
+            duration: 1000
           });
           return false;
         }
@@ -263,8 +261,8 @@ export default {
       this.getSelectProductCateList();
       this.filterProductAttrList = [
         {
-          value: [],
-        },
+          value: []
+        }
       ];
     },
     removeFilterAttr(productAttributeId) {
@@ -272,7 +270,7 @@ export default {
         this.$message({
           message: "至少要留一个",
           type: "warning",
-          duration: 1000,
+          duration: 1000
         });
         return;
       }
@@ -286,15 +284,15 @@ export default {
         this.$message({
           message: "最多添加三个",
           type: "warning",
-          duration: 1000,
+          duration: 1000
         });
         return;
       }
       this.filterProductAttrList.push({
         value: null,
-        key: Date.now(),
+        key: Date.now()
       });
-    },
+    }
   },
   filters: {
     filterLabelFilter(index) {
@@ -303,8 +301,8 @@ export default {
       } else {
         return "";
       }
-    },
-  },
+    }
+  }
 };
 </script>
 

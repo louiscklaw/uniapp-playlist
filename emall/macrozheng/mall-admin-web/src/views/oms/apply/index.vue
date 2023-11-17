@@ -1,5 +1,4 @@
 <template>
-   
   <div class="app-container">
     <el-card class="filter-container" shadow="never">
       <div>
@@ -182,25 +181,25 @@ const defaultListQuery = {
   status: null,
   createTime: null,
   handleMan: null,
-  handleTime: null,
+  handleTime: null
 };
 const defaultStatusOptions = [
   {
     label: "待处理",
-    value: 0,
+    value: 0
   },
   {
     label: "退货中",
-    value: 1,
+    value: 1
   },
   {
     label: "已完成",
-    value: 2,
+    value: 2
   },
   {
     label: "已拒绝",
-    value: 3,
-  },
+    value: 3
+  }
 ];
 export default {
   name: "returnApplyList",
@@ -216,9 +215,9 @@ export default {
       operateOptions: [
         {
           label: "批量删除",
-          value: 1,
-        },
-      ],
+          value: 1
+        }
+      ]
     };
   },
   created() {
@@ -241,7 +240,7 @@ export default {
     },
     formatReturnAmount(row) {
       return row.productRealPrice * row.productCount;
-    },
+    }
   },
   methods: {
     handleSelectionChange(val) {
@@ -257,7 +256,7 @@ export default {
     handleViewDetail(index, row) {
       this.$router.push({
         path: "/oms/returnApplyDetail",
-        query: { id: row.id },
+        query: { id: row.id }
       });
     },
     handleBatchOperate() {
@@ -265,7 +264,7 @@ export default {
         this.$message({
           message: "请选择要操作的申请",
           type: "warning",
-          duration: 1000,
+          duration: 1000
         });
         return;
       }
@@ -274,7 +273,7 @@ export default {
         this.$confirm("是否要进行删除操作?", "提示", {
           confirmButtonText: "确定",
           cancelButtonText: "取消",
-          type: "warning",
+          type: "warning"
         }).then(() => {
           let params = new URLSearchParams();
           let ids = [];
@@ -282,11 +281,11 @@ export default {
             ids.push(this.multipleSelection[i].id);
           }
           params.append("ids", ids);
-          deleteApply(params).then((response) => {
+          deleteApply(params).then(response => {
             this.getList();
             this.$message({
               type: "success",
-              message: "删除成功!",
+              message: "删除成功!"
             });
           });
         });
@@ -303,13 +302,13 @@ export default {
     },
     getList() {
       this.listLoading = true;
-      fetchList(this.listQuery).then((response) => {
+      fetchList(this.listQuery).then(response => {
         this.listLoading = false;
         this.list = response.data.list;
         this.total = response.data.total;
       });
-    },
-  },
+    }
+  }
 };
 </script>
 <style scoped>

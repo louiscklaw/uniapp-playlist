@@ -110,17 +110,17 @@ export default {
       listLoading: true,
       listQuery: {
         pageNum: 1,
-        pageSize: 5,
-        type: this.$route.query.type,
+        pageSize: 10,
+        type: this.$route.query.type
       },
       operateType: null,
       multipleSelection: [],
       operates: [
         {
           label: "删除",
-          value: "deleteProductAttr",
-        },
-      ],
+          value: "deleteProductAttr"
+        }
+      ]
     };
   },
   created() {
@@ -129,7 +129,7 @@ export default {
   methods: {
     getList() {
       this.listLoading = true;
-      fetchList(this.$route.query.cid, this.listQuery).then((response) => {
+      fetchList(this.$route.query.cid, this.listQuery).then(response => {
         this.listLoading = false;
         this.list = response.data.list;
         this.total = response.data.total;
@@ -138,7 +138,7 @@ export default {
     addProductAttr() {
       this.$router.push({
         path: "/pms/addProductAttr",
-        query: { cid: this.$route.query.cid, type: this.$route.query.type },
+        query: { cid: this.$route.query.cid, type: this.$route.query.type }
       });
     },
     handleSelectionChange(val) {
@@ -149,7 +149,7 @@ export default {
         this.$message({
           message: "请选择一条记录",
           type: "warning",
-          duration: 1000,
+          duration: 1000
         });
         return;
       }
@@ -157,7 +157,7 @@ export default {
         this.$message({
           message: "请选择批量操作类型",
           type: "warning",
-          duration: 1000,
+          duration: 1000
         });
         return;
       }
@@ -179,22 +179,22 @@ export default {
     handleUpdate(index, row) {
       this.$router.push({
         path: "/pms/updateProductAttr",
-        query: { id: row.id },
+        query: { id: row.id }
       });
     },
     handleDeleteProductAttr(ids) {
       this.$confirm("是否要删除该属性", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning",
+        type: "warning"
       }).then(() => {
         let data = new URLSearchParams();
         data.append("ids", ids);
-        deleteProductAttr(data).then((response) => {
+        deleteProductAttr(data).then(response => {
           this.$message({
             message: "删除成功",
             type: "success",
-            duration: 1000,
+            duration: 1000
           });
           this.getList();
         });
@@ -204,7 +204,7 @@ export default {
       let ids = [];
       ids.push(row.id);
       this.handleDeleteProductAttr(ids);
-    },
+    }
   },
   filters: {
     inputTypeFilter(value) {
@@ -222,8 +222,8 @@ export default {
       } else {
         return "唯一";
       }
-    },
-  },
+    }
+  }
 };
 </script>
 

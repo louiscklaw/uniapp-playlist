@@ -342,11 +342,11 @@ import {
   updateDeleteStatus,
   updateNewStatus,
   updateRecommendStatus,
-  updatePublishStatus,
+  updatePublishStatus
 } from "@/api/product";
 import {
   fetchList as fetchSkuStockList,
-  update as updateSkuStockList,
+  update as updateSkuStockList
 } from "@/api/skuStock";
 import { fetchList as fetchProductAttrList } from "@/api/productAttr";
 import { fetchList as fetchBrandList } from "@/api/brand";
@@ -355,12 +355,12 @@ import { fetchListWithChildren } from "@/api/productCate";
 const defaultListQuery = {
   keyword: null,
   pageNum: 1,
-  pageSize: 999,
+  pageSize: 10,
   publishStatus: null,
   verifyStatus: null,
   productSn: null,
   productCategoryId: null,
-  brandId: null,
+  brandId: null
 };
 export default {
   name: "productList",
@@ -373,41 +373,41 @@ export default {
         productAttributeCategoryId: null,
         stockList: [],
         productAttr: [],
-        keyword: null,
+        keyword: null
       },
       operates: [
         {
           label: "商品上架",
-          value: "publishOn",
+          value: "publishOn"
         },
         {
           label: "商品下架",
-          value: "publishOff",
+          value: "publishOff"
         },
         {
           label: "设为推荐",
-          value: "recommendOn",
+          value: "recommendOn"
         },
         {
           label: "取消推荐",
-          value: "recommendOff",
+          value: "recommendOff"
         },
         {
           label: "设为新品",
-          value: "newOn",
+          value: "newOn"
         },
         {
           label: "取消新品",
-          value: "newOff",
+          value: "newOff"
         },
         {
           label: "转移到分类",
-          value: "transferCategory",
+          value: "transferCategory"
         },
         {
           label: "移入回收站",
-          value: "recycle",
-        },
+          value: "recycle"
+        }
       ],
       operateType: null,
       listQuery: Object.assign({}, defaultListQuery),
@@ -421,23 +421,23 @@ export default {
       publishStatusOptions: [
         {
           value: 1,
-          label: "上架",
+          label: "上架"
         },
         {
           value: 0,
-          label: "下架",
-        },
+          label: "下架"
+        }
       ],
       verifyStatusOptions: [
         {
           value: 1,
-          label: "审核通过",
+          label: "审核通过"
         },
         {
           value: 0,
-          label: "未审核",
-        },
-      ],
+          label: "未审核"
+        }
+      ]
     };
   },
   created() {
@@ -446,13 +446,13 @@ export default {
     this.getProductCateList();
   },
   watch: {
-    selectProductCateValue: function (newValue) {
+    selectProductCateValue: function(newValue) {
       if (newValue != null && newValue.length == 2) {
         this.listQuery.productCategoryId = newValue[1];
       } else {
         this.listQuery.productCategoryId = null;
       }
-    },
+    }
   },
   filters: {
     verifyStatusFilter(value) {
@@ -461,7 +461,7 @@ export default {
       } else {
         return "未审核";
       }
-    },
+    }
   },
   methods: {
     getProductSkuSp(row, index) {
@@ -474,26 +474,26 @@ export default {
     },
     getList() {
       this.listLoading = true;
-      fetchList(this.listQuery).then((response) => {
+      fetchList(this.listQuery).then(response => {
         this.listLoading = false;
         this.list = response.data.list;
         this.total = response.data.total;
       });
     },
     getBrandList() {
-      fetchBrandList({ pageNum: 1, pageSize: 100 }).then((response) => {
+      fetchBrandList({ pageNum: 1, pageSize: 100 }).then(response => {
         this.brandOptions = [];
         let brandList = response.data.list;
         for (let i = 0; i < brandList.length; i++) {
           this.brandOptions.push({
             label: brandList[i].name,
-            value: brandList[i].id,
+            value: brandList[i].id
           });
         }
       });
     },
     getProductCateList() {
-      fetchListWithChildren().then((response) => {
+      fetchListWithChildren().then(response => {
         let list = response.data;
         this.productCateOptions = [];
         for (let i = 0; i < list.length; i++) {
@@ -502,14 +502,14 @@ export default {
             for (let j = 0; j < list[i].children.length; j++) {
               children.push({
                 label: list[i].children[j].name,
-                value: list[i].children[j].id,
+                value: list[i].children[j].id
               });
             }
           }
           this.productCateOptions.push({
             label: list[i].name,
             value: list[i].id,
-            children: children,
+            children: children
           });
         }
       });
@@ -522,22 +522,22 @@ export default {
         row.productAttributeCategoryId;
       this.editSkuInfo.keyword = null;
       fetchSkuStockList(row.id, { keyword: this.editSkuInfo.keyword }).then(
-        (response) => {
+        response => {
           this.editSkuInfo.stockList = response.data;
-        },
+        }
       );
       if (row.productAttributeCategoryId != null) {
         fetchProductAttrList(row.productAttributeCategoryId, { type: 0 }).then(
-          (response) => {
+          response => {
             this.editSkuInfo.productAttr = response.data.list;
-          },
+          }
         );
       }
     },
     handleSearchEditSku() {
       fetchSkuStockList(this.editSkuInfo.productId, {
-        keyword: this.editSkuInfo.keyword,
-      }).then((response) => {
+        keyword: this.editSkuInfo.keyword
+      }).then(response => {
         this.editSkuInfo.stockList = response.data;
       });
     },
@@ -549,23 +549,23 @@ export default {
         this.$message({
           message: "暂无sku信息",
           type: "warning",
-          duration: 1000,
+          duration: 1000
         });
         return;
       }
       this.$confirm("是否要进行修改", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning",
+        type: "warning"
       }).then(() => {
         updateSkuStockList(
           this.editSkuInfo.productId,
-          this.editSkuInfo.stockList,
-        ).then((response) => {
+          this.editSkuInfo.stockList
+        ).then(response => {
           this.$message({
             message: "修改成功",
             type: "success",
-            duration: 1000,
+            duration: 1000
           });
           this.editSkuInfo.dialogVisible = false;
         });
@@ -583,7 +583,7 @@ export default {
         this.$message({
           message: "请选择操作类型",
           type: "warning",
-          duration: 1000,
+          duration: 1000
         });
         return;
       }
@@ -591,14 +591,14 @@ export default {
         this.$message({
           message: "请选择要操作的商品",
           type: "warning",
-          duration: 1000,
+          duration: 1000
         });
         return;
       }
       this.$confirm("是否要进行该批量操作?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning",
+        type: "warning"
       }).then(() => {
         let ids = [];
         for (let i = 0; i < this.multipleSelection.length; i++) {
@@ -669,7 +669,7 @@ export default {
       this.$confirm("是否要进行删除操作?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning",
+        type: "warning"
       }).then(() => {
         let ids = [];
         ids.push(row.id);
@@ -694,11 +694,11 @@ export default {
       let params = new URLSearchParams();
       params.append("ids", ids);
       params.append("publishStatus", publishStatus);
-      updatePublishStatus(params).then((response) => {
+      updatePublishStatus(params).then(response => {
         this.$message({
           message: "修改成功",
           type: "success",
-          duration: 1000,
+          duration: 1000
         });
       });
     },
@@ -706,11 +706,11 @@ export default {
       let params = new URLSearchParams();
       params.append("ids", ids);
       params.append("newStatus", newStatus);
-      updateNewStatus(params).then((response) => {
+      updateNewStatus(params).then(response => {
         this.$message({
           message: "修改成功",
           type: "success",
-          duration: 1000,
+          duration: 1000
         });
       });
     },
@@ -718,11 +718,11 @@ export default {
       let params = new URLSearchParams();
       params.append("ids", ids);
       params.append("recommendStatus", recommendStatus);
-      updateRecommendStatus(params).then((response) => {
+      updateRecommendStatus(params).then(response => {
         this.$message({
           message: "修改成功",
           type: "success",
-          duration: 1000,
+          duration: 1000
         });
       });
     },
@@ -730,16 +730,16 @@ export default {
       let params = new URLSearchParams();
       params.append("ids", ids);
       params.append("deleteStatus", deleteStatus);
-      updateDeleteStatus(params).then((response) => {
+      updateDeleteStatus(params).then(response => {
         this.$message({
           message: "删除成功",
           type: "success",
-          duration: 1000,
+          duration: 1000
         });
       });
       this.getList();
-    },
-  },
+    }
+  }
 };
 </script>
 <style></style>

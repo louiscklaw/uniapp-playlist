@@ -1,5 +1,4 @@
 <template>
-   
   <div class="app-container">
     <el-card class="filter-container" shadow="never">
       <div>
@@ -258,7 +257,7 @@ const defaultListQuery = {
   status: null,
   orderType: null,
   sourceType: null,
-  createTime: null,
+  createTime: null
 };
 export default {
   name: "orderList",
@@ -274,65 +273,65 @@ export default {
       closeOrder: {
         dialogVisible: false,
         content: null,
-        orderIds: [],
+        orderIds: []
       },
       statusOptions: [
         {
           label: "待付款",
-          value: 0,
+          value: 0
         },
         {
           label: "待发货",
-          value: 1,
+          value: 1
         },
         {
           label: "已发货",
-          value: 2,
+          value: 2
         },
         {
           label: "已完成",
-          value: 3,
+          value: 3
         },
         {
           label: "已关闭",
-          value: 4,
-        },
+          value: 4
+        }
       ],
       orderTypeOptions: [
         {
           label: "正常订单",
-          value: 0,
+          value: 0
         },
         {
           label: "秒杀订单",
-          value: 1,
-        },
+          value: 1
+        }
       ],
       sourceTypeOptions: [
         {
           label: "PC订单",
-          value: 0,
+          value: 0
         },
         {
           label: "APP订单",
-          value: 1,
-        },
+          value: 1
+        }
       ],
       operateOptions: [
         {
           label: "批量发货",
-          value: 1,
+          value: 1
         },
         {
           label: "关闭订单",
-          value: 2,
+          value: 2
         },
         {
           label: "删除订单",
-          value: 3,
-        },
+          value: 3
+        }
       ],
-      logisticsDialogVisible: false,
+      logisticsDialogVisible: false
     };
   },
   created() {
@@ -373,7 +372,7 @@ export default {
       } else {
         return "待付款";
       }
-    },
+    }
   },
   methods: {
     handleResetSearch() {
@@ -397,7 +396,7 @@ export default {
       let listItem = this.covertOrder(row);
       this.$router.push({
         path: "/oms/deliverOrderList",
-        query: { list: [listItem] },
+        query: { list: [listItem] }
       });
     },
     handleViewLogistics(index, row) {
@@ -413,7 +412,7 @@ export default {
         this.$message({
           message: "请选择要操作的订单",
           type: "warning",
-          duration: 1000,
+          duration: 1000
         });
         return;
       }
@@ -429,13 +428,13 @@ export default {
           this.$message({
             message: "选中订单中没有可以发货的订单",
             type: "warning",
-            duration: 1000,
+            duration: 1000
           });
           return;
         }
         this.$router.push({
           path: "/oms/deliverOrderList",
-          query: { list: list },
+          query: { list: list }
         });
       } else if (this.operateType === 2) {
         //关闭订单
@@ -467,27 +466,27 @@ export default {
         this.$message({
           message: "操作备注不能为空",
           type: "warning",
-          duration: 1000,
+          duration: 1000
         });
         return;
       }
       let params = new URLSearchParams();
       params.append("ids", this.closeOrder.orderIds);
       params.append("note", this.closeOrder.content);
-      closeOrder(params).then((response) => {
+      closeOrder(params).then(response => {
         this.closeOrder.orderIds = [];
         this.closeOrder.dialogVisible = false;
         this.getList();
         this.$message({
           message: "修改成功",
           type: "success",
-          duration: 1000,
+          duration: 1000
         });
       });
     },
     getList() {
       this.listLoading = true;
-      fetchList(this.listQuery).then((response) => {
+      fetchList(this.listQuery).then(response => {
         this.listLoading = false;
         this.list = response.data.list;
         this.total = response.data.total;
@@ -497,15 +496,15 @@ export default {
       this.$confirm("是否要进行该删除操作?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning",
+        type: "warning"
       }).then(() => {
         let params = new URLSearchParams();
         params.append("ids", ids);
-        deleteOrder(params).then((response) => {
+        deleteOrder(params).then(response => {
           this.$message({
             message: "删除成功！",
             type: "success",
-            duration: 1000,
+            duration: 1000
           });
           this.getList();
         });
@@ -525,11 +524,11 @@ export default {
         receiverPostCode: order.receiverPostCode,
         address: address,
         deliveryCompany: null,
-        deliverySn: null,
+        deliverySn: null
       };
       return listItem;
-    },
-  },
+    }
+  }
 };
 </script>
 <style scoped>

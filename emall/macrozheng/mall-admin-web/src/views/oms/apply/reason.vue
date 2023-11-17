@@ -1,5 +1,4 @@
 <template>
-   
   <div class="app-container">
     <el-card class="operate-container" shadow="never">
       <i class="el-icon-tickets"></i>
@@ -127,17 +126,17 @@ import {
   updateStatus,
   addReason,
   getReasonDetail,
-  updateReason,
+  updateReason
 } from "@/api/returnReason";
 const defaultListQuery = {
   pageNum: 1,
-  pageSize: 5,
+  pageSize: 10
 };
 const defaultReturnReason = {
   name: null,
   sort: 0,
   status: 1,
-  createTime: null,
+  createTime: null
 };
 export default {
   name: "returnReasonList",
@@ -152,12 +151,12 @@ export default {
       operateOptions: [
         {
           label: "删除",
-          value: 1,
-        },
+          value: 1
+        }
       ],
       dialogVisible: false,
       returnReason: Object.assign({}, defaultReturnReason),
-      operateReasonId: null,
+      operateReasonId: null
     };
   },
   created() {
@@ -167,7 +166,7 @@ export default {
     formatCreateTime(time) {
       let date = new Date(time);
       return formatDate(date, "yyyy-MM-dd hh:mm:ss");
-    },
+    }
   },
   methods: {
     handleAdd() {
@@ -178,36 +177,34 @@ export default {
     handleConfirm() {
       if (this.operateReasonId == null) {
         //添加操作
-        addReason(this.returnReason).then((response) => {
+        addReason(this.returnReason).then(response => {
           this.dialogVisible = false;
           this.operateReasonId = null;
           this.$message({
             message: "添加成功！",
             type: "success",
-            duration: 1000,
+            duration: 1000
           });
           this.getList();
         });
       } else {
         //编辑操作
-        updateReason(this.operateReasonId, this.returnReason).then(
-          (response) => {
-            this.dialogVisible = false;
-            this.operateReasonId = null;
-            this.$message({
-              message: "修改成功！",
-              type: "success",
-              duration: 1000,
-            });
-            this.getList();
-          },
-        );
+        updateReason(this.operateReasonId, this.returnReason).then(response => {
+          this.dialogVisible = false;
+          this.operateReasonId = null;
+          this.$message({
+            message: "修改成功！",
+            type: "success",
+            duration: 1000
+          });
+          this.getList();
+        });
       }
     },
     handleUpdate(index, row) {
       this.dialogVisible = true;
       this.operateReasonId = row.id;
-      getReasonDetail(row.id).then((response) => {
+      getReasonDetail(row.id).then(response => {
         this.returnReason = response.data;
       });
     },
@@ -225,10 +222,10 @@ export default {
       let param = new URLSearchParams();
       param.append("status", row.status);
       param.append("ids", ids);
-      updateStatus(param).then((response) => {
+      updateStatus(param).then(response => {
         this.$message({
           message: "状态修改成功",
-          type: "success",
+          type: "success"
         });
       });
     },
@@ -237,7 +234,7 @@ export default {
         this.$message({
           message: "请选择要操作的条目",
           type: "warning",
-          duration: 1000,
+          duration: 1000
         });
         return;
       }
@@ -260,7 +257,7 @@ export default {
     },
     getList() {
       this.listLoading = true;
-      fetchList(this.listQuery).then((response) => {
+      fetchList(this.listQuery).then(response => {
         this.listLoading = false;
         this.list = response.data.list;
         this.total = response.data.total;
@@ -270,22 +267,22 @@ export default {
       this.$confirm("是否要进行该删除操作?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning",
+        type: "warning"
       }).then(() => {
         let params = new URLSearchParams();
         params.append("ids", ids);
-        deleteReason(params).then((response) => {
+        deleteReason(params).then(response => {
           this.$message({
             message: "删除成功！",
             type: "success",
-            duration: 1000,
+            duration: 1000
           });
           this.listQuery.pageNum = 1;
           this.getList();
         });
       });
-    },
-  },
+    }
+  }
 };
 </script>
 <style scoped>

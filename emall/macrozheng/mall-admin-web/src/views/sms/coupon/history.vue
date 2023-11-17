@@ -1,5 +1,4 @@
 <template>
-   
   <div class="app-container">
     <div class="table-layout">
       <el-row>
@@ -166,41 +165,41 @@ import { fetchList as fetchCouponHistoryList } from "@/api/couponHistory";
 const defaultTypeOptions = [
   {
     label: "全场赠券",
-    value: 0,
+    value: 0
   },
   {
     label: "会员赠券",
-    value: 1,
+    value: 1
   },
   {
     label: "购物赠券",
-    value: 2,
+    value: 2
   },
   {
     label: "注册赠券",
-    value: 3,
-  },
+    value: 3
+  }
 ];
 const defaultListQuery = {
   pageNum: 1,
   pageSize: 10,
   useStatus: null,
   orderSn: null,
-  couponId: null,
+  couponId: null
 };
 const defaultUseTypeOptions = [
   {
     label: "未使用",
-    value: 0,
+    value: 0
   },
   {
     label: "已使用",
-    value: 1,
+    value: 1
   },
   {
     label: "已过期",
-    value: 2,
-  },
+    value: 2
+  }
 ];
 export default {
   name: "couponHistoryList",
@@ -211,11 +210,11 @@ export default {
       useTypeOptions: Object.assign({}, defaultUseTypeOptions),
       list: null,
       total: null,
-      listLoading: false,
+      listLoading: false
     };
   },
   created() {
-    getCoupon(this.$route.query.id).then((response) => {
+    getCoupon(this.$route.query.id).then(response => {
       this.coupon = response.data;
     });
     this.listQuery.couponId = this.$route.query.id;
@@ -285,12 +284,12 @@ export default {
       }
       let date = new Date(time);
       return formatDate(date, "yyyy-MM-dd hh:mm:ss");
-    },
+    }
   },
   methods: {
     getList() {
       this.listLoading = true;
-      fetchCouponHistoryList(this.listQuery).then((response) => {
+      fetchCouponHistoryList(this.listQuery).then(response => {
         this.listLoading = false;
         this.list = response.data.list;
         this.total = response.data.total;
@@ -312,8 +311,8 @@ export default {
     handleCurrentChange(val) {
       this.listQuery.pageNum = val;
       this.getList();
-    },
-  },
+    }
+  }
 };
 </script>
 <style scoped>

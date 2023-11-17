@@ -1,5 +1,4 @@
 <template>
-   
   <div class="app-container">
     <el-card class="filter-container" shadow="never">
       <div>
@@ -238,25 +237,25 @@ import {
   updateRecommendStatus,
   deleteNewProduct,
   createNewProduct,
-  updateNewProductSort,
+  updateNewProductSort
 } from "@/api/newProduct";
 import { fetchList as fetchProductList } from "@/api/product";
 
 const defaultListQuery = {
   pageNum: 1,
-  pageSize: 5,
+  pageSize: 10,
   productName: null,
-  recommendStatus: null,
+  recommendStatus: null
 };
 const defaultRecommendOptions = [
   {
     label: "未推荐",
-    value: 0,
+    value: 0
   },
   {
     label: "推荐中",
-    value: 1,
-  },
+    value: 1
+  }
 ];
 export default {
   name: "newProductList",
@@ -271,16 +270,16 @@ export default {
       operates: [
         {
           label: "设为推荐",
-          value: 0,
+          value: 0
         },
         {
           label: "取消推荐",
-          value: 1,
+          value: 1
         },
         {
           label: "删除",
-          value: 2,
-        },
+          value: 2
+        }
       ],
       operateType: null,
       selectDialogVisible: false,
@@ -291,11 +290,11 @@ export default {
         listQuery: {
           keyword: null,
           pageNum: 1,
-          pageSize: 5,
-        },
+          pageSize: 10
+        }
       },
       sortDialogVisible: false,
-      sortDialogData: { sort: 0, id: null },
+      sortDialogData: { sort: 0, id: null }
     };
   },
   created() {
@@ -308,7 +307,7 @@ export default {
       } else {
         return "未推荐";
       }
-    },
+    }
   },
   methods: {
     handleResetSearch() {
@@ -341,7 +340,7 @@ export default {
         this.$message({
           message: "请选择一条记录",
           type: "warning",
-          duration: 1000,
+          duration: 1000
         });
         return;
       }
@@ -362,7 +361,7 @@ export default {
         this.$message({
           message: "请选择批量操作类型",
           type: "warning",
-          duration: 1000,
+          duration: 1000
         });
       }
     },
@@ -390,7 +389,7 @@ export default {
         this.$message({
           message: "请选择一条记录",
           type: "warning",
-          duration: 1000,
+          duration: 1000
         });
         return;
       }
@@ -398,21 +397,21 @@ export default {
       for (let i = 0; i < this.dialogData.multipleSelection.length; i++) {
         selectProducts.push({
           productId: this.dialogData.multipleSelection[i].id,
-          productName: this.dialogData.multipleSelection[i].name,
+          productName: this.dialogData.multipleSelection[i].name
         });
       }
       this.$confirm("使用要进行添加操作?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning",
+        type: "warning"
       }).then(() => {
-        createNewProduct(selectProducts).then((response) => {
+        createNewProduct(selectProducts).then(response => {
           this.selectDialogVisible = false;
           this.dialogData.multipleSelection = [];
           this.getList();
           this.$message({
             type: "success",
-            message: "添加成功!",
+            message: "添加成功!"
           });
         });
       });
@@ -426,21 +425,21 @@ export default {
       this.$confirm("是否要修改排序?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning",
+        type: "warning"
       }).then(() => {
-        updateNewProductSort(this.sortDialogData).then((response) => {
+        updateNewProductSort(this.sortDialogData).then(response => {
           this.sortDialogVisible = false;
           this.getList();
           this.$message({
             type: "success",
-            message: "删除成功!",
+            message: "删除成功!"
           });
         });
       });
     },
     getList() {
       this.listLoading = true;
-      fetchList(this.listQuery).then((response) => {
+      fetchList(this.listQuery).then(response => {
         this.listLoading = false;
         this.list = response.data.list;
         this.total = response.data.total;
@@ -450,24 +449,24 @@ export default {
       this.$confirm("是否要修改推荐状态?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning",
+        type: "warning"
       })
         .then(() => {
           let params = new URLSearchParams();
           params.append("ids", ids);
           params.append("recommendStatus", status);
-          updateRecommendStatus(params).then((response) => {
+          updateRecommendStatus(params).then(response => {
             this.getList();
             this.$message({
               type: "success",
-              message: "修改成功!",
+              message: "修改成功!"
             });
           });
         })
         .catch(() => {
           this.$message({
             type: "success",
-            message: "已取消操作!",
+            message: "已取消操作!"
           });
           this.getList();
         });
@@ -476,26 +475,26 @@ export default {
       this.$confirm("是否要删除该推荐?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning",
+        type: "warning"
       }).then(() => {
         let params = new URLSearchParams();
         params.append("ids", ids);
-        deleteNewProduct(params).then((response) => {
+        deleteNewProduct(params).then(response => {
           this.getList();
           this.$message({
             type: "success",
-            message: "删除成功!",
+            message: "删除成功!"
           });
         });
       });
     },
     getDialogList() {
-      fetchProductList(this.dialogData.listQuery).then((response) => {
+      fetchProductList(this.dialogData.listQuery).then(response => {
         this.dialogData.list = response.data.list;
         this.dialogData.total = response.data.total;
       });
-    },
-  },
+    }
+  }
 };
 </script>
 <style></style>

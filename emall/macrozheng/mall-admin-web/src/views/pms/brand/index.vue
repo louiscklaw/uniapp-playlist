@@ -1,5 +1,4 @@
 <template>
-   
   <div class="app-container">
     <el-card class="filter-container" shadow="never">
       <div>
@@ -161,7 +160,7 @@ import {
   fetchList,
   updateShowStatus,
   updateFactoryStatus,
-  deleteBrand,
+  deleteBrand
 } from "@/api/brand";
 
 export default {
@@ -171,23 +170,23 @@ export default {
       operates: [
         {
           label: "显示品牌",
-          value: "showBrand",
+          value: "showBrand"
         },
         {
           label: "隐藏品牌",
-          value: "hideBrand",
-        },
+          value: "hideBrand"
+        }
       ],
       operateType: null,
       listQuery: {
         keyword: null,
         pageNum: 1,
-        pageSize: 10,
+        pageSize: 10
       },
       list: null,
       total: null,
       listLoading: true,
-      multipleSelection: [],
+      multipleSelection: []
     };
   },
   created() {
@@ -196,7 +195,7 @@ export default {
   methods: {
     getList() {
       this.listLoading = true;
-      fetchList(this.listQuery).then((response) => {
+      fetchList(this.listQuery).then(response => {
         this.listLoading = false;
         this.list = response.data.list;
         this.total = response.data.total;
@@ -214,13 +213,13 @@ export default {
       this.$confirm("是否要删除该品牌", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning",
+        type: "warning"
       }).then(() => {
-        deleteBrand(row.id).then((response) => {
+        deleteBrand(row.id).then(response => {
           this.$message({
             message: "删除成功",
             type: "success",
-            duration: 1000,
+            duration: 1000
           });
           this.getList();
         });
@@ -237,14 +236,14 @@ export default {
       data.append("ids", row.id);
       data.append("factoryStatus", row.factoryStatus);
       updateFactoryStatus(data)
-        .then((response) => {
+        .then(response => {
           this.$message({
             message: "修改成功",
             type: "success",
-            duration: 1000,
+            duration: 1000
           });
         })
-        .catch((error) => {
+        .catch(error => {
           if (row.factoryStatus === 0) {
             row.factoryStatus = 1;
           } else {
@@ -257,14 +256,14 @@ export default {
       data.append("ids", row.id);
       data.append("showStatus", row.showStatus);
       updateShowStatus(data)
-        .then((response) => {
+        .then(response => {
           this.$message({
             message: "修改成功",
             type: "success",
-            duration: 1000,
+            duration: 1000
           });
         })
-        .catch((error) => {
+        .catch(error => {
           if (row.showStatus === 0) {
             row.showStatus = 1;
           } else {
@@ -291,7 +290,7 @@ export default {
         this.$message({
           message: "请选择一条记录",
           type: "warning",
-          duration: 1000,
+          duration: 1000
         });
         return;
       }
@@ -304,7 +303,7 @@ export default {
         this.$message({
           message: "请选择批量操作类型",
           type: "warning",
-          duration: 1000,
+          duration: 1000
         });
         return;
       }
@@ -315,19 +314,19 @@ export default {
       let data = new URLSearchParams();
       data.append("ids", ids);
       data.append("showStatus", showStatus);
-      updateShowStatus(data).then((response) => {
+      updateShowStatus(data).then(response => {
         this.getList();
         this.$message({
           message: "修改成功",
           type: "success",
-          duration: 1000,
+          duration: 1000
         });
       });
     },
     addBrand() {
       this.$router.push({ path: "/pms/addBrand" });
-    },
-  },
+    }
+  }
 };
 </script>
 <style rel="stylesheet/scss" lang="scss" scoped></style>

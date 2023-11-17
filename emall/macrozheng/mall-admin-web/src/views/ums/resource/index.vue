@@ -1,5 +1,4 @@
 <template>
-   
   <div class="app-container">
     <el-card class="filter-container" shadow="never">
       <div>
@@ -190,7 +189,7 @@ import {
   fetchList,
   createResource,
   updateResource,
-  deleteResource,
+  deleteResource
 } from "@/api/resource";
 import { listAllCate } from "@/api/resourceCategory";
 import { formatDate } from "@/utils/date";
@@ -200,14 +199,14 @@ const defaultListQuery = {
   pageSize: 10,
   nameKeyword: null,
   urlKeyword: null,
-  categoryId: null,
+  categoryId: null
 };
 const defaultResource = {
   id: null,
   name: null,
   url: null,
   categoryId: null,
-  description: "",
+  description: ""
 };
 export default {
   name: "resourceList",
@@ -221,7 +220,7 @@ export default {
       resource: Object.assign({}, defaultResource),
       isEdit: false,
       categoryOptions: [],
-      defaultCategoryId: null,
+      defaultCategoryId: null
     };
   },
   created() {
@@ -235,7 +234,7 @@ export default {
       }
       let date = new Date(time);
       return formatDate(date, "yyyy-MM-dd hh:mm:ss");
-    },
+    }
   },
   methods: {
     handleResetSearch() {
@@ -264,12 +263,12 @@ export default {
       this.$confirm("是否要删除该资源?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning",
+        type: "warning"
       }).then(() => {
-        deleteResource(row.id).then((response) => {
+        deleteResource(row.id).then(response => {
           this.$message({
             type: "success",
-            message: "删除成功!",
+            message: "删除成功!"
           });
           this.getList();
         });
@@ -284,22 +283,22 @@ export default {
       this.$confirm("是否要确认?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning",
+        type: "warning"
       }).then(() => {
         if (this.isEdit) {
-          updateResource(this.resource.id, this.resource).then((response) => {
+          updateResource(this.resource.id, this.resource).then(response => {
             this.$message({
               message: "修改成功！",
-              type: "success",
+              type: "success"
             });
             this.dialogVisible = false;
             this.getList();
           });
         } else {
-          createResource(this.resource).then((response) => {
+          createResource(this.resource).then(response => {
             this.$message({
               message: "添加成功！",
-              type: "success",
+              type: "success"
             });
             this.dialogVisible = false;
             this.getList();
@@ -312,14 +311,14 @@ export default {
     },
     getList() {
       this.listLoading = true;
-      fetchList(this.listQuery).then((response) => {
+      fetchList(this.listQuery).then(response => {
         this.listLoading = false;
         this.list = response.data.list;
         this.total = response.data.total;
       });
     },
     getCateList() {
-      listAllCate().then((response) => {
+      listAllCate().then(response => {
         let cateList = response.data;
         for (let i = 0; i < cateList.length; i++) {
           let cate = cateList[i];
@@ -327,8 +326,8 @@ export default {
         }
         this.defaultCategoryId = cateList[0].id;
       });
-    },
-  },
+    }
+  }
 };
 </script>
 <style></style>

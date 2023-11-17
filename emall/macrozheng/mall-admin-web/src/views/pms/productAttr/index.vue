@@ -106,7 +106,7 @@ import {
   fetchList,
   createProductAttrCate,
   deleteProductAttrCate,
-  updateProductAttrCate,
+  updateProductAttrCate
 } from "@/api/productAttrCate";
 
 export default {
@@ -118,17 +118,17 @@ export default {
       listLoading: true,
       listQuery: {
         pageNum: 1,
-        pageSize: 5,
+        pageSize: 10
       },
       dialogVisible: false,
       dialogTitle: "",
       productAttrCate: {
         name: "",
-        id: null,
+        id: null
       },
       rules: {
-        name: [{ required: true, message: "请输入类型名称", trigger: "blur" }],
-      },
+        name: [{ required: true, message: "请输入类型名称", trigger: "blur" }]
+      }
     };
   },
   created() {
@@ -137,7 +137,7 @@ export default {
   methods: {
     getList() {
       this.listLoading = true;
-      fetchList(this.listQuery).then((response) => {
+      fetchList(this.listQuery).then(response => {
         this.listLoading = false;
         this.list = response.data.list;
         this.total = response.data.total;
@@ -160,13 +160,13 @@ export default {
       this.$confirm("是否要删除该品牌", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning",
+        type: "warning"
       }).then(() => {
-        deleteProductAttrCate(row.id).then((response) => {
+        deleteProductAttrCate(row.id).then(response => {
           this.$message({
             message: "删除成功",
             type: "success",
-            duration: 1000,
+            duration: 1000
           });
           this.getList();
         });
@@ -181,41 +181,41 @@ export default {
     getAttrList(index, row) {
       this.$router.push({
         path: "/pms/productAttrList",
-        query: { cid: row.id, cname: row.name, type: 0 },
+        query: { cid: row.id, cname: row.name, type: 0 }
       });
     },
     getParamList(index, row) {
       this.$router.push({
         path: "/pms/productAttrList",
-        query: { cid: row.id, cname: row.name, type: 1 },
+        query: { cid: row.id, cname: row.name, type: 1 }
       });
     },
     handleConfirm(formName) {
-      this.$refs[formName].validate((valid) => {
+      this.$refs[formName].validate(valid => {
         if (valid) {
           let data = new URLSearchParams();
           data.append("name", this.productAttrCate.name);
           if (this.dialogTitle === "添加类型") {
-            createProductAttrCate(data).then((response) => {
+            createProductAttrCate(data).then(response => {
               this.$message({
                 message: "添加成功",
                 type: "success",
-                duration: 1000,
+                duration: 1000
               });
               this.dialogVisible = false;
               this.getList();
             });
           } else {
             updateProductAttrCate(this.productAttrCate.id, data).then(
-              (response) => {
+              response => {
                 this.$message({
                   message: "修改成功",
                   type: "success",
-                  duration: 1000,
+                  duration: 1000
                 });
                 this.dialogVisible = false;
                 this.getList();
-              },
+              }
             );
           }
         } else {
@@ -228,8 +228,8 @@ export default {
       if (!this.dialogVisible && this.$refs.productAttrCatForm) {
         this.$refs.productAttrCatForm.clearValidate();
       }
-    },
-  },
+    }
+  }
 };
 </script>
 <style rel="stylesheet/scss" lang="scss" scoped></style>

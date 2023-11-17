@@ -1,5 +1,4 @@
 <template>
-   
   <div class="app-container">
     <el-card class="filter-container" shadow="never">
       <div>
@@ -181,25 +180,25 @@
 import {
   fetchList,
   updateStatus,
-  deleteHomeAdvertise,
+  deleteHomeAdvertise
 } from "@/api/homeAdvertise";
 import { formatDate } from "@/utils/date";
 const defaultListQuery = {
   pageNum: 1,
-  pageSize: 5,
+  pageSize: 10,
   name: null,
   type: null,
-  endTime: null,
+  endTime: null
 };
 const defaultTypeOptions = [
   {
     label: "PC首页轮播",
-    value: 0,
+    value: 0
   },
   {
     label: "APP首页轮播",
-    value: 1,
-  },
+    value: 1
+  }
 ];
 export default {
   name: "homeAdvertiseList",
@@ -214,10 +213,10 @@ export default {
       operates: [
         {
           label: "删除",
-          value: 0,
-        },
+          value: 0
+        }
       ],
-      operateType: null,
+      operateType: null
     };
   },
   created() {
@@ -237,7 +236,7 @@ export default {
       }
       let date = new Date(time);
       return formatDate(date, "yyyy-MM-dd hh:mm:ss");
-    },
+    }
   },
   methods: {
     handleResetSearch() {
@@ -263,21 +262,21 @@ export default {
       this.$confirm("是否要修改上线/下线状态?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning",
+        type: "warning"
       })
         .then(() => {
-          updateStatus(row.id, { status: row.status }).then((response) => {
+          updateStatus(row.id, { status: row.status }).then(response => {
             this.getList();
             this.$message({
               type: "success",
-              message: "修改成功!",
+              message: "修改成功!"
             });
           });
         })
         .catch(() => {
           this.$message({
             type: "success",
-            message: "已取消操作!",
+            message: "已取消操作!"
           });
           this.getList();
         });
@@ -290,7 +289,7 @@ export default {
         this.$message({
           message: "请选择一条记录",
           type: "warning",
-          duration: 1000,
+          duration: 1000
         });
         return;
       }
@@ -305,7 +304,7 @@ export default {
         this.$message({
           message: "请选择批量操作类型",
           type: "warning",
-          duration: 1000,
+          duration: 1000
         });
       }
     },
@@ -315,12 +314,12 @@ export default {
     handleUpdate(index, row) {
       this.$router.push({
         path: "/sms/updateAdvertise",
-        query: { id: row.id },
+        query: { id: row.id }
       });
     },
     getList() {
       this.listLoading = true;
-      fetchList(this.listQuery).then((response) => {
+      fetchList(this.listQuery).then(response => {
         this.listLoading = false;
         this.list = response.data.list;
         this.total = response.data.total;
@@ -330,20 +329,20 @@ export default {
       this.$confirm("是否要删除该广告?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning",
+        type: "warning"
       }).then(() => {
         let params = new URLSearchParams();
         params.append("ids", ids);
-        deleteHomeAdvertise(params).then((response) => {
+        deleteHomeAdvertise(params).then(response => {
           this.getList();
           this.$message({
             type: "success",
-            message: "删除成功!",
+            message: "删除成功!"
           });
         });
       });
-    },
-  },
+    }
+  }
 };
 </script>
 <style scoped>

@@ -1,5 +1,4 @@
 <template>
-   
   <div class="app-container">
     <el-card class="filter-container" shadow="never">
       <div>
@@ -163,25 +162,25 @@ const defaultListQuery = {
   pageNum: 1,
   pageSize: 10,
   name: null,
-  type: null,
+  type: null
 };
 const defaultTypeOptions = [
   {
     label: "全场赠券",
-    value: 0,
+    value: 0
   },
   {
     label: "会员赠券",
-    value: 1,
+    value: 1
   },
   {
     label: "购物赠券",
-    value: 2,
+    value: 2
   },
   {
     label: "注册赠券",
-    value: 3,
-  },
+    value: 3
+  }
 ];
 export default {
   name: "couponList",
@@ -192,7 +191,7 @@ export default {
       list: null,
       total: null,
       listLoading: false,
-      multipleSelection: [],
+      multipleSelection: []
     };
   },
   created() {
@@ -240,7 +239,7 @@ export default {
       } else {
         return "已过期";
       }
-    },
+    }
   },
   methods: {
     handleResetSearch() {
@@ -275,12 +274,12 @@ export default {
       this.$confirm("是否进行删除操作?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning",
+        type: "warning"
       }).then(() => {
-        deleteCoupon(row.id).then((response) => {
+        deleteCoupon(row.id).then(response => {
           this.$message({
             type: "success",
-            message: "删除成功!",
+            message: "删除成功!"
           });
           this.getList();
         });
@@ -288,13 +287,13 @@ export default {
     },
     getList() {
       this.listLoading = true;
-      fetchList(this.listQuery).then((response) => {
+      fetchList(this.listQuery).then(response => {
         this.listLoading = false;
         this.list = response.data.list;
         this.total = response.data.total;
       });
-    },
-  },
+    }
+  }
 };
 </script>
 <style scoped>

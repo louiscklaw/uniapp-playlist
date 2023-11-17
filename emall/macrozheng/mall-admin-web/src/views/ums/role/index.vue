@@ -1,5 +1,4 @@
 <template>
-   
   <div class="app-container">
     <el-card class="filter-container" shadow="never">
       <div>
@@ -173,21 +172,21 @@ import {
   createRole,
   updateRole,
   updateStatus,
-  deleteRole,
+  deleteRole
 } from "@/api/role";
 import { formatDate } from "@/utils/date";
 
 const defaultListQuery = {
   pageNum: 1,
-  pageSize: 5,
-  keyword: null,
+  pageSize: 10,
+  keyword: null
 };
 const defaultRole = {
   id: null,
   name: null,
   description: null,
   adminCount: 0,
-  status: 1,
+  status: 1
 };
 export default {
   name: "roleList",
@@ -199,7 +198,7 @@ export default {
       listLoading: false,
       dialogVisible: false,
       role: Object.assign({}, defaultRole),
-      isEdit: false,
+      isEdit: false
     };
   },
   created() {
@@ -212,7 +211,7 @@ export default {
       }
       let date = new Date(time);
       return formatDate(date, "yyyy-MM-dd hh:mm:ss");
-    },
+    }
   },
   methods: {
     handleResetSearch() {
@@ -240,20 +239,20 @@ export default {
       this.$confirm("是否要修改该状态?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning",
+        type: "warning"
       })
         .then(() => {
-          updateStatus(row.id, { status: row.status }).then((response) => {
+          updateStatus(row.id, { status: row.status }).then(response => {
             this.$message({
               type: "success",
-              message: "修改成功!",
+              message: "修改成功!"
             });
           });
         })
         .catch(() => {
           this.$message({
             type: "info",
-            message: "取消修改",
+            message: "取消修改"
           });
           this.getList();
         });
@@ -262,16 +261,16 @@ export default {
       this.$confirm("是否要删除该角色?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning",
+        type: "warning"
       }).then(() => {
         let ids = [];
         ids.push(row.id);
         let params = new URLSearchParams();
         params.append("ids", ids);
-        deleteRole(params).then((response) => {
+        deleteRole(params).then(response => {
           this.$message({
             type: "success",
-            message: "删除成功!",
+            message: "删除成功!"
           });
           this.getList();
         });
@@ -286,22 +285,22 @@ export default {
       this.$confirm("是否要确认?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning",
+        type: "warning"
       }).then(() => {
         if (this.isEdit) {
-          updateRole(this.role.id, this.role).then((response) => {
+          updateRole(this.role.id, this.role).then(response => {
             this.$message({
               message: "修改成功！",
-              type: "success",
+              type: "success"
             });
             this.dialogVisible = false;
             this.getList();
           });
         } else {
-          createRole(this.role).then((response) => {
+          createRole(this.role).then(response => {
             this.$message({
               message: "添加成功！",
-              type: "success",
+              type: "success"
             });
             this.dialogVisible = false;
             this.getList();
@@ -315,18 +314,18 @@ export default {
     handleSelectResource(index, row) {
       this.$router.push({
         path: "/ums/allocResource",
-        query: { roleId: row.id },
+        query: { roleId: row.id }
       });
     },
     getList() {
       this.listLoading = true;
-      fetchList(this.listQuery).then((response) => {
+      fetchList(this.listQuery).then(response => {
         this.listLoading = false;
         this.list = response.data.list;
         this.total = response.data.total;
       });
-    },
-  },
+    }
+  }
 };
 </script>
 <style></style>

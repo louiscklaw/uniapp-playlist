@@ -1,5 +1,4 @@
 <template>
-   
   <div class="app-container">
     <el-card class="filter-container" shadow="never">
       <div>
@@ -187,21 +186,21 @@ import {
   updateStatus,
   deleteFlash,
   createFlash,
-  updateFlash,
+  updateFlash
 } from "@/api/flash";
 import { formatDate } from "@/utils/date";
 
 const defaultListQuery = {
   pageNum: 1,
-  pageSize: 5,
-  keyword: null,
+  pageSize: 10,
+  keyword: null
 };
 const defaultFlashPromotion = {
   id: null,
   title: null,
   startDate: null,
   endDate: null,
-  status: 0,
+  status: 0
 };
 export default {
   name: "flashPromotionList",
@@ -213,7 +212,7 @@ export default {
       listLoading: false,
       dialogVisible: false,
       flashPromotion: Object.assign({}, defaultFlashPromotion),
-      isEdit: false,
+      isEdit: false
     };
   },
   created() {
@@ -236,7 +235,7 @@ export default {
       }
       let date = new Date(time);
       return formatDate(date, "yyyy-MM-dd");
-    },
+    }
   },
   methods: {
     handleResetSearch() {
@@ -267,20 +266,20 @@ export default {
       this.$confirm("是否要修改该状态?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning",
+        type: "warning"
       })
         .then(() => {
-          updateStatus(row.id, { status: row.status }).then((response) => {
+          updateStatus(row.id, { status: row.status }).then(response => {
             this.$message({
               type: "success",
-              message: "修改成功!",
+              message: "修改成功!"
             });
           });
         })
         .catch(() => {
           this.$message({
             type: "info",
-            message: "取消修改",
+            message: "取消修改"
           });
           this.getList();
         });
@@ -289,12 +288,12 @@ export default {
       this.$confirm("是否要删除该活动?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning",
+        type: "warning"
       }).then(() => {
-        deleteFlash(row.id).then((response) => {
+        deleteFlash(row.id).then(response => {
           this.$message({
             type: "success",
-            message: "删除成功!",
+            message: "删除成功!"
           });
           this.getList();
         });
@@ -309,24 +308,24 @@ export default {
       this.$confirm("是否要确认?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning",
+        type: "warning"
       }).then(() => {
         if (this.isEdit) {
           updateFlash(this.flashPromotion.id, this.flashPromotion).then(
-            (response) => {
+            response => {
               this.$message({
                 message: "修改成功！",
-                type: "success",
+                type: "success"
               });
               this.dialogVisible = false;
               this.getList();
-            },
+            }
           );
         } else {
-          createFlash(this.flashPromotion).then((response) => {
+          createFlash(this.flashPromotion).then(response => {
             this.$message({
               message: "添加成功！",
-              type: "success",
+              type: "success"
             });
             this.dialogVisible = false;
             this.getList();
@@ -337,18 +336,18 @@ export default {
     handleSelectSession(index, row) {
       this.$router.push({
         path: "/sms/selectSession",
-        query: { flashPromotionId: row.id },
+        query: { flashPromotionId: row.id }
       });
     },
     getList() {
       this.listLoading = true;
-      fetchList(this.listQuery).then((response) => {
+      fetchList(this.listQuery).then(response => {
         this.listLoading = false;
         this.list = response.data.list;
         this.total = response.data.total;
       });
-    },
-  },
+    }
+  }
 };
 </script>
 <style></style>

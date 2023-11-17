@@ -88,7 +88,7 @@ import { fetchList } from "@/api/productAttrCate";
 import {
   createProductAttr,
   getProductAttr,
-  updateProductAttr,
+  updateProductAttr
 } from "@/api/productAttr";
 
 const defaultProductAttr = {
@@ -102,15 +102,15 @@ const defaultProductAttr = {
   searchType: 0,
   selectType: 0,
   sort: 0,
-  type: 0,
+  type: 0
 };
 export default {
   name: "ProductAttrDetail",
   props: {
     isEdit: {
       type: Boolean,
-      default: false,
-    },
+      default: false
+    }
   },
   data() {
     return {
@@ -122,17 +122,17 @@ export default {
             min: 2,
             max: 140,
             message: "长度在 2 到 140 个字符",
-            trigger: "blur",
-          },
-        ],
+            trigger: "blur"
+          }
+        ]
       },
       productAttrCateList: null,
-      inputListFormat: null,
+      inputListFormat: null
     };
   },
   created() {
     if (this.isEdit) {
-      getProductAttr(this.$route.query.id).then((response) => {
+      getProductAttr(this.$route.query.id).then(response => {
         this.productAttr = response.data;
         this.inputListFormat = this.productAttr.inputList.replace(/,/g, "\n");
       });
@@ -142,50 +142,50 @@ export default {
     this.getCateList();
   },
   watch: {
-    inputListFormat: function (newValue, oldValue) {
+    inputListFormat: function(newValue, oldValue) {
       newValue = newValue.replace(/\n/g, ",");
       this.productAttr.inputList = newValue;
-    },
+    }
   },
   methods: {
     getCateList() {
       let listQuery = { pageNum: 1, pageSize: 100 };
-      fetchList(listQuery).then((response) => {
+      fetchList(listQuery).then(response => {
         this.productAttrCateList = response.data.list;
       });
     },
     resetProductAttr() {
       this.productAttr = Object.assign({}, defaultProductAttr);
       this.productAttr.productAttributeCategoryId = Number(
-        this.$route.query.cid,
+        this.$route.query.cid
       );
       this.productAttr.type = Number(this.$route.query.type);
     },
     onSubmit(formName) {
-      this.$refs[formName].validate((valid) => {
+      this.$refs[formName].validate(valid => {
         if (valid) {
           this.$confirm("是否提交数据", "提示", {
             confirmButtonText: "确定",
             cancelButtonText: "取消",
-            type: "warning",
+            type: "warning"
           }).then(() => {
             if (this.isEdit) {
               updateProductAttr(this.$route.query.id, this.productAttr).then(
-                (response) => {
+                response => {
                   this.$message({
                     message: "修改成功",
                     type: "success",
-                    duration: 1000,
+                    duration: 1000
                   });
                   this.$router.back();
-                },
+                }
               );
             } else {
-              createProductAttr(this.productAttr).then((response) => {
+              createProductAttr(this.productAttr).then(response => {
                 this.$message({
                   message: "提交成功",
                   type: "success",
-                  duration: 1000,
+                  duration: 1000
                 });
                 this.resetForm("productAttrFrom");
               });
@@ -195,7 +195,7 @@ export default {
           this.$message({
             message: "验证失败",
             type: "error",
-            duration: 1000,
+            duration: 1000
           });
           return false;
         }
@@ -204,8 +204,8 @@ export default {
     resetForm(formName) {
       this.$refs[formName].resetFields();
       this.resetProductAttr();
-    },
-  },
+    }
+  }
 };
 </script>
 

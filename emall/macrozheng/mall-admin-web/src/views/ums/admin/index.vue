@@ -1,5 +1,4 @@
 <template>
-   
   <div class="app-container">
     <el-card class="filter-container" shadow="never">
       <div>
@@ -211,7 +210,7 @@ import {
   updateStatus,
   deleteAdmin,
   getRoleByAdmin,
-  allocRole,
+  allocRole
 } from "@/api/login";
 import { fetchAllRoleList } from "@/api/role";
 import { formatDate } from "@/utils/date";
@@ -219,7 +218,7 @@ import { formatDate } from "@/utils/date";
 const defaultListQuery = {
   pageNum: 1,
   pageSize: 10,
-  keyword: null,
+  keyword: null
 };
 const defaultAdmin = {
   id: null,
@@ -228,7 +227,7 @@ const defaultAdmin = {
   nickName: null,
   email: null,
   note: null,
-  status: 1,
+  status: 1
 };
 export default {
   name: "adminList",
@@ -244,7 +243,7 @@ export default {
       allocDialogVisible: false,
       allocRoleIds: [],
       allRoleList: [],
-      allocAdminId: null,
+      allocAdminId: null
     };
   },
   created() {
@@ -258,7 +257,7 @@ export default {
       }
       let date = new Date(time);
       return formatDate(date, "yyyy-MM-dd hh:mm:ss");
-    },
+    }
   },
   methods: {
     handleResetSearch() {
@@ -286,20 +285,20 @@ export default {
       this.$confirm("是否要修改该状态?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning",
+        type: "warning"
       })
         .then(() => {
-          updateStatus(row.id, { status: row.status }).then((response) => {
+          updateStatus(row.id, { status: row.status }).then(response => {
             this.$message({
               type: "success",
-              message: "修改成功!",
+              message: "修改成功!"
             });
           });
         })
         .catch(() => {
           this.$message({
             type: "info",
-            message: "取消修改",
+            message: "取消修改"
           });
           this.getList();
         });
@@ -308,12 +307,12 @@ export default {
       this.$confirm("是否要删除该用户?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning",
+        type: "warning"
       }).then(() => {
-        deleteAdmin(row.id).then((response) => {
+        deleteAdmin(row.id).then(response => {
           this.$message({
             type: "success",
-            message: "删除成功!",
+            message: "删除成功!"
           });
           this.getList();
         });
@@ -328,22 +327,22 @@ export default {
       this.$confirm("是否要确认?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning",
+        type: "warning"
       }).then(() => {
         if (this.isEdit) {
-          updateAdmin(this.admin.id, this.admin).then((response) => {
+          updateAdmin(this.admin.id, this.admin).then(response => {
             this.$message({
               message: "修改成功！",
-              type: "success",
+              type: "success"
             });
             this.dialogVisible = false;
             this.getList();
           });
         } else {
-          createAdmin(this.admin).then((response) => {
+          createAdmin(this.admin).then(response => {
             this.$message({
               message: "添加成功！",
-              type: "success",
+              type: "success"
             });
             this.dialogVisible = false;
             this.getList();
@@ -355,15 +354,15 @@ export default {
       this.$confirm("是否要确认?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning",
+        type: "warning"
       }).then(() => {
         let params = new URLSearchParams();
         params.append("adminId", this.allocAdminId);
         params.append("roleIds", this.allocRoleIds);
-        allocRole(params).then((response) => {
+        allocRole(params).then(response => {
           this.$message({
             message: "分配成功！",
-            type: "success",
+            type: "success"
           });
           this.allocDialogVisible = false;
         });
@@ -376,19 +375,19 @@ export default {
     },
     getList() {
       this.listLoading = true;
-      fetchList(this.listQuery).then((response) => {
+      fetchList(this.listQuery).then(response => {
         this.listLoading = false;
         this.list = response.data.list;
         this.total = response.data.total;
       });
     },
     getAllRoleList() {
-      fetchAllRoleList().then((response) => {
+      fetchAllRoleList().then(response => {
         this.allRoleList = response.data;
       });
     },
     getRoleListByAdmin(adminId) {
-      getRoleByAdmin(adminId).then((response) => {
+      getRoleByAdmin(adminId).then(response => {
         let allocRoleList = response.data;
         this.allocRoleIds = [];
         if (allocRoleList != null && allocRoleList.length > 0) {
@@ -397,8 +396,8 @@ export default {
           }
         }
       });
-    },
-  },
+    }
+  }
 };
 </script>
 <style></style>
