@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.macro.mall.portal.dao.PortalOrderDao">
-    <resultMap id="orderDetailMap" type="com.macro.mall.portal.domain.OmsOrderDetail"
-               extends="com.macro.mall.mapper.OmsOrderMapper.BaseResultMap">
-        <collection property="orderItemList" columnPrefix="ot_"
-                    resultMap="com.macro.mall.mapper.OmsOrderItemMapper.BaseResultMap">
+    <resultMap id="orderDetailMap"
+        type="com.macro.mall.portal.domain.OmsOrderDetail"
+        extends="com.macro.mall.mapper.OmsOrderMapper.BaseResultMap">
+        <collection property="orderItemList"
+            columnPrefix="ot_"
+            resultMap="com.macro.mall.mapper.OmsOrderItemMapper.BaseResultMap">
         </collection>
     </resultMap>
-    <select id="getDetail" resultMap="orderDetailMap">
+    <select id="getDetail"
+        resultMap="orderDetailMap">
         SELECT
             o.id,
             o.order_sn,
@@ -26,7 +29,8 @@
             o.id = #{orderId}
     </select>
 
-    <select id="getTimeOutOrders" resultMap="orderDetailMap">
+    <select id="getTimeOutOrders"
+        resultMap="orderDetailMap">
         SELECT
             o.id,
             o.order_sn,
@@ -51,18 +55,24 @@
         UPDATE pms_sku_stock
         SET
             stock = CASE id
-            <foreach collection="itemList" item="item">
+        <foreach collection="itemList"
+            item="item">
               WHEN #{item.productSkuId} THEN stock - #{item.productQuantity}
-            </foreach>
+        </foreach>
             END,
             lock_stock = CASE id
-            <foreach collection="itemList" item="item">
+        <foreach collection="itemList"
+            item="item">
               WHEN #{item.productSkuId} THEN lock_stock - #{item.productQuantity}
-            </foreach>
+        </foreach>
             END
         WHERE
             id IN
-        <foreach collection="itemList" item="item" separator="," open="(" close=")">
+        <foreach collection="itemList"
+            item="item"
+            separator=","
+            open="("
+            close=")">
             #{item.productSkuId}
         </foreach>
     </update>
@@ -70,7 +80,11 @@
         update oms_order
         set status=#{status}
         where id in
-        <foreach collection="ids" item="id" separator="," open="(" close=")">
+        <foreach collection="ids"
+            item="id"
+            separator=","
+            open="("
+            close=")">
             #{id}
         </foreach>
     </update>
@@ -78,13 +92,18 @@
         UPDATE pms_sku_stock
         SET
         lock_stock = CASE id
-        <foreach collection="itemList" item="item">
+        <foreach collection="itemList"
+            item="item">
             WHEN #{item.productSkuId} THEN lock_stock - #{item.productQuantity}
         </foreach>
         END
         WHERE
         id IN
-        <foreach collection="itemList" item="item" separator="," open="(" close=")">
+        <foreach collection="itemList"
+            item="item"
+            separator=","
+            open="("
+            close=")">
             #{item.productSkuId}
         </foreach>
     </update>

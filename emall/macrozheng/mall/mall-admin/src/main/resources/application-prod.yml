@@ -35,3 +35,4 @@ logging:
 
 logstash:
   host: logstash
+

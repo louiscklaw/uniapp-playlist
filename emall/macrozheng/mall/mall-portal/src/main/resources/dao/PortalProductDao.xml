@@ -1,23 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.macro.mall.portal.dao.PortalProductDao">
-    <resultMap id="cartProductMap" type="com.macro.mall.portal.domain.CartProduct" autoMapping="true">
-        <id column="id" jdbcType="BIGINT" property="id" />
-        <collection property="productAttributeList" columnPrefix="attr_" resultMap="com.macro.mall.mapper.PmsProductAttributeMapper.BaseResultMap">
+    <resultMap id="cartProductMap"
+        type="com.macro.mall.portal.domain.CartProduct"
+        autoMapping="true">
+        <id column="id"
+            jdbcType="BIGINT"
+            property="id" />
+        <collection property="productAttributeList"
+            columnPrefix="attr_"
+            resultMap="com.macro.mall.mapper.PmsProductAttributeMapper.BaseResultMap">
         </collection>
-        <collection property="skuStockList" columnPrefix="sku_" resultMap="com.macro.mall.mapper.PmsSkuStockMapper.BaseResultMap">
+        <collection property="skuStockList"
+            columnPrefix="sku_"
+            resultMap="com.macro.mall.mapper.PmsSkuStockMapper.BaseResultMap">
         </collection>
     </resultMap>
-    <resultMap id="promotionProductMap" type="com.macro.mall.portal.domain.PromotionProduct" extends="com.macro.mall.mapper.PmsProductMapper.BaseResultMap">
-        <id column="id" jdbcType="BIGINT" property="id" />
-        <collection property="skuStockList" columnPrefix="sku_" resultMap="com.macro.mall.mapper.PmsSkuStockMapper.BaseResultMap">
+    <resultMap id="promotionProductMap"
+        type="com.macro.mall.portal.domain.PromotionProduct"
+        extends="com.macro.mall.mapper.PmsProductMapper.BaseResultMap">
+        <id column="id"
+            jdbcType="BIGINT"
+            property="id" />
+        <collection property="skuStockList"
+            columnPrefix="sku_"
+            resultMap="com.macro.mall.mapper.PmsSkuStockMapper.BaseResultMap">
         </collection>
-        <collection property="productLadderList" columnPrefix="ladder_" resultMap="com.macro.mall.mapper.PmsProductLadderMapper.BaseResultMap">
+        <collection property="productLadderList"
+            columnPrefix="ladder_"
+            resultMap="com.macro.mall.mapper.PmsProductLadderMapper.BaseResultMap">
         </collection>
-        <collection property="productFullReductionList" columnPrefix="full_" resultMap="com.macro.mall.mapper.PmsProductFullReductionMapper.BaseResultMap">
+        <collection property="productFullReductionList"
+            columnPrefix="full_"
+            resultMap="com.macro.mall.mapper.PmsProductFullReductionMapper.BaseResultMap">
         </collection>
     </resultMap>
-    <select id="getCartProduct" resultMap="cartProductMap">
+    <select id="getCartProduct"
+        resultMap="cartProductMap">
         SELECT
             p.id id,
             p.`name` name,
@@ -42,7 +61,8 @@
             AND pa.type = 0
         ORDER BY pa.sort desc
     </select>
-    <select id="getPromotionProductList" resultMap="promotionProductMap">
+    <select id="getPromotionProductList"
+        resultMap="promotionProductMap">
         SELECT
             p.id,
             p.`name`,
@@ -68,11 +88,16 @@
             LEFT JOIN pms_product_full_reduction full_re ON p.id = full_re.product_id
         WHERE
             p.id IN
-        <foreach collection="ids" open="(" close=")" item="id" separator=",">
+        <foreach collection="ids"
+            open="("
+            close=")"
+            item="id"
+            separator=",">
             #{id}
         </foreach>
     </select>
-    <select id="getAvailableCouponList" resultMap="com.macro.mall.mapper.SmsCouponMapper.BaseResultMap">
+    <select id="getAvailableCouponList"
+        resultMap="com.macro.mall.mapper.SmsCouponMapper.BaseResultMap">
         SELECT *
         FROM sms_coupon
         WHERE use_type = 0

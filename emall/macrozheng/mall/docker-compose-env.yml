@@ -1,5 +1,49 @@
 services:
 
+  elasticsearch:
+    image: elasticsearch:7.17.3
+    container_name: elasticsearch
+    environment:
+      #设置集群名称为elasticsearch
+      - "cluster.name=elasticsearch"
+      #以单一节点模式启动
+      - "discovery.type=single-node"
+      #设置使用jvm内存大小
+      - "ES_JAVA_OPTS=-Xms512m -Xmx1024m"
+    volumes:
+      #插件文件挂载
+      - ./mydata/elasticsearch/plugins:/usr/share/elasticsearch/plugins
+      #数据文件挂载
+      - ./mydata/elasticsearch/data:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+      - 9300:9300
+    deploy:
+      resources:
+        reservations:
+          cpus: '0.01'
+
+  logstash:
+    image: logstash:7.17.3
+    container_name: logstash
+    environment:
+      - TZ=Asia/Shanghai
+    volumes:
+      #挂载logstash的配置文件
+      - ./mydata/logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+    links:
+      #可以用es这个域名访问elasticsearch服务
+      - elasticsearch:es
+    ports:
+      - 4560:4560
+      - 4561:4561
+      - 4562:4562
+      - 4563:4563
+    deploy:
+      resources:
+        reservations:
+          cpus: '0.01'
+
   mysql:
     # image: mysql:5.7
     image: mysql:8
@@ -11,27 +55,36 @@ services:
     ports:
       - 3306:3306
     volumes:
-      - ./mydata/mysql/data:/var/lib/mysql #数据文件挂载
-      - ./mydata/mysql/conf.d:/etc/mysql/conf.d #配置文件挂载
-      - ./mydata/mysql/log:/var/log/mysql #日志文件挂载
+      #数据文件挂载
+      - ./mydata/mysql/data:/var/lib/mysql
+      #配置文件挂载
+      - ./mydata/mysql/conf.d:/etc/mysql/conf.d
+      #日志文件挂载
+      - ./mydata/mysql/log:/var/log/mysql
     deploy:
       resources:
         reservations:
-          cpus: '0.0001'
+          cpus: '0.01'
+    depends_on:
+      - elasticsearch
+
 
   rabbitmq:
-      # image: rabbitmq:3.10-management
-      build: ./docker/rabbitmq
-      container_name: rabbitmq
-      volumes:
-        - ./mydata/rabbitmq/data:/var/lib/rabbitmq #数据文件挂载
-      ports:
-        - 5672:5672
-        - 15672:15672
-      deploy:
-        resources:
-          reservations:
-            cpus: '0.0001'
+    # image: rabbitmq:3.10-management
+    build: ./docker/rabbitmq
+    container_name: rabbitmq
+    volumes:
+      #数据文件挂载
+      - ./mydata/rabbitmq/data:/var/lib/rabbitmq
+    ports:
+      - 5672:5672
+      - 15672:15672
+    deploy:
+      resources:
+        reservations:
+          cpus: '0.01'
+    depends_on:
+      - elasticsearch
 
   minio:
     image: minio/minio
@@ -48,7 +101,9 @@ services:
     deploy:
       resources:
         reservations:
-          cpus: '0.0001'
+          cpus: '0.01'
+    depends_on:
+      - elasticsearch
 
   redis:
     image: redis:7
@@ -61,21 +116,28 @@ services:
     deploy:
       resources:
         reservations:
-          cpus: '0.0001'
+          cpus: '0.01'
+    depends_on:
+      - elasticsearch
 
   nginx:
     image: nginx:1.22
     container_name: nginx
     volumes:
-      - ./mydata/nginx/conf:/etc/nginx #配置文件目录挂载
-      - ./mydata/nginx/html:/usr/share/nginx/html #静态资源根目录挂载
-      - ./mydata/nginx/logs:/var/log/nginx #日志文件挂载
+      #配置文件目录挂载
+      - ./mydata/nginx/conf:/etc/nginx
+      #静态资源根目录挂载
+      - ./mydata/nginx/html:/usr/share/nginx/html
+      #日志文件挂载
+      - ./mydata/nginx/logs:/var/log/nginx
     ports:
       - 80:80
     deploy:
       resources:
         reservations:
-          cpus: '0.0001'
+          cpus: '0.01'
+    depends_on:
+      - elasticsearch
 
   mongo:
     image: mongo:4
@@ -87,62 +149,28 @@ services:
     deploy:
       resources:
         reservations:
-          cpus: '0.0001'
-
-  elasticsearch:
-    image: elasticsearch:7.17.3
-    container_name: elasticsearch
-    environment:
-      - "cluster.name=elasticsearch" #设置集群名称为elasticsearch
-      - "discovery.type=single-node" #以单一节点模式启动
-      - "ES_JAVA_OPTS=-Xms512m -Xmx1024m" #设置使用jvm内存大小
-    volumes:
-      - ./mydata/elasticsearch/plugins:/usr/share/elasticsearch/plugins #插件文件挂载
-      - ./mydata/elasticsearch/data:/usr/share/elasticsearch/data #数据文件挂载
-    ports:
-      - 9200:9200
-      - 9300:9300
-    deploy:
-      resources:
-        reservations:
-          cpus: '0.0001'
-
-  logstash:
-    image: logstash:7.17.3
-    container_name: logstash
-    environment:
-      - TZ=Asia/Shanghai
-    volumes:
-      - ./mydata/logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf #挂载logstash的配置文件
+          cpus: '0.01'
     depends_on:
-      - elasticsearch #kibana在elasticsearch启动之后再启动
-    links:
-      - elasticsearch:es #可以用es这个域名访问elasticsearch服务
-    ports:
-      - 4560:4560
-      - 4561:4561
-      - 4562:4562
-      - 4563:4563
-    deploy:
-      resources:
-        reservations:
-          cpus: '0.0001'
+      - elasticsearch
 
   kibana:
     image: kibana:7.17.3
     container_name: kibana
     links:
-      - elasticsearch:es #可以用es这个域名访问elasticsearch服务
+      #可以用es这个域名访问elasticsearch服务
+      - elasticsearch:es
     depends_on:
-      - elasticsearch #kibana在elasticsearch启动之后再启动
+      - elasticsearch
+     
     environment:
-      - "elasticsearch.hosts=http://es:9200" #设置访问elasticsearch的地址
+      #设置访问elasticsearch的地址
+      - "elasticsearch.hosts=http://es:9200"
     ports:
       - 5601:5601
     deploy:
       resources:
         reservations:
-          cpus: '0.0001'
+          cpus: '0.01'
 
   mall-portal:
     image: 192.168.10.61:5000/mall/mall-portal:1.0-SNAPSHOT
@@ -162,7 +190,14 @@ services:
     deploy:
       resources:
         reservations:
-          cpus: '0.0001'
+          cpus: '0.01'
+    depends_on:
+      - redis
+      - mongo
+      - mysql
+      - rabbitmq
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8085"]
 
   mall-admin:
     image: 192.168.10.61:5000/mall/mall-admin:1.0-SNAPSHOT
@@ -180,7 +215,7 @@ services:
     deploy:
       resources:
         reservations:
-          cpus: '0.0001'
+          cpus: '0.01'
 
   mall-search:
     image: 192.168.10.61:5000/mall/mall-search:1.0-SNAPSHOT
@@ -195,10 +230,11 @@ services:
     external_links:
       - elasticsearch:es #可以用es这个域名访问elasticsearch服务
       - mysql:db #可以用db这个域名访问mysql服务
+    depends_on:
+      - elasticsearch
 
-          
-  # adminer:
-  #   image: adminer
-  #   restart: always
-  #   ports:
-  #     - 8082:8080
+  # # adminer:
+  # #   image: adminer
+  # #   restart: always
+  # #   ports:
+  # #     - 8082:8080

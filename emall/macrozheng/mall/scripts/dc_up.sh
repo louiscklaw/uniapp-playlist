@@ -8,6 +8,8 @@
 
 mkdir -p ./mydata/elasticsearch
 sudo chmod 777 -R ./mydata/elasticsearch
+rm -rf /workspace/uniapp-playlist/emall/macrozheng/mall/mydata/elasticsearch/data/*
+
 
 mkdir -p ./mydata/minio
 sudo chmod 777 -R ./mydata/minio
