@@ -101,8 +101,8 @@ export default {
     value: Object,
     isEdit: {
       type: Boolean,
-      default: false,
-    },
+      default: false
+    }
   },
   data() {
     return {
@@ -118,25 +118,25 @@ export default {
             min: 2,
             max: 140,
             message: "长度在 2 到 140 个字符",
-            trigger: "blur",
-          },
+            trigger: "blur"
+          }
         ],
         subTitle: [
-          { required: true, message: "请输入商品副标题", trigger: "blur" },
+          { required: true, message: "请输入商品副标题", trigger: "blur" }
         ],
         productCategoryId: [
-          { required: true, message: "请选择商品分类", trigger: "blur" },
+          { required: true, message: "请选择商品分类", trigger: "blur" }
         ],
         brandId: [
-          { required: true, message: "请选择商品品牌", trigger: "blur" },
+          { required: true, message: "请选择商品品牌", trigger: "blur" }
         ],
         description: [
-          { required: true, message: "请输入商品介绍", trigger: "blur" },
+          { required: true, message: "请输入商品介绍", trigger: "blur" }
         ],
         requiredProp: [
-          { required: true, message: "该项为必填项", trigger: "blur" },
-        ],
-      },
+          { required: true, message: "该项为必填项", trigger: "blur" }
+        ]
+      }
     };
   },
   created() {
@@ -147,26 +147,26 @@ export default {
     //商品的编号
     productId() {
       return this.value.id;
-    },
+    }
   },
   watch: {
-    productId: function (newValue) {
+    productId: function(newValue) {
       if (!this.isEdit) return;
       if (this.hasEditCreated) return;
       if (newValue === undefined || newValue == null || newValue === 0) return;
       this.handleEditCreated();
     },
-    selectProductCateValue: function (newValue) {
+    selectProductCateValue: function(newValue) {
       if (newValue != null && newValue.length === 2) {
         this.value.productCategoryId = newValue[1];
         this.value.productCategoryName = this.getCateNameById(
-          this.value.productCategoryId,
+          this.value.productCategoryId
         );
       } else {
         this.value.productCategoryId = null;
         this.value.productCategoryName = null;
       }
-    },
+    }
   },
   methods: {
     //处理编辑逻辑
@@ -178,7 +178,7 @@ export default {
       this.hasEditCreated = true;
     },
     getProductCateList() {
-      fetchListWithChildren().then((response) => {
+      fetchListWithChildren().then(response => {
         let list = response.data;
         this.productCateOptions = [];
         for (let i = 0; i < list.length; i++) {
@@ -187,26 +187,26 @@ export default {
             for (let j = 0; j < list[i].children.length; j++) {
               children.push({
                 label: list[i].children[j].name,
-                value: list[i].children[j].id,
+                value: list[i].children[j].id
               });
             }
           }
           this.productCateOptions.push({
             label: list[i].name,
             value: list[i].id,
-            children: children,
+            children: children
           });
         }
       });
     },
     getBrandList() {
-      fetchBrandList({ pageNum: 1, pageSize: 100 }).then((response) => {
+      fetchBrandList({ pageNum: 1, pageSize: 100 }).then(response => {
         this.brandOptions = [];
         let brandList = response.data.list;
         for (let i = 0; i < brandList.length; i++) {
           this.brandOptions.push({
             label: brandList[i].name,
-            value: brandList[i].id,
+            value: brandList[i].id
           });
         }
       });
@@ -224,14 +224,14 @@ export default {
       return name;
     },
     handleNext(formName) {
-      this.$refs[formName].validate((valid) => {
+      this.$refs[formName].validate(valid => {
         if (valid) {
           this.$emit("nextStep");
         } else {
           this.$message({
             message: "验证失败",
             type: "error",
-            duration: 1000,
+            duration: 1000
           });
           return false;
         }
@@ -246,8 +246,8 @@ export default {
         }
       }
       this.value.brandName = brandName;
-    },
-  },
+    }
+  }
 };
 </script>
 
