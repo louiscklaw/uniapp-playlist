@@ -221,8 +221,8 @@ export default {
     value: Object,
     isEdit: {
       type: Boolean,
-      default: false,
-    },
+      default: false
+    }
   },
   data() {
     return {
@@ -239,7 +239,7 @@ export default {
       //可手动添加的商品属性
       addProductAttrValue: "",
       //商品富文本详情激活类型
-      activeHtmlName: "pc",
+      activeHtmlName: "pc"
     };
   },
   computed: {
@@ -256,7 +256,7 @@ export default {
     },
     //商品的主图和画册图片
     selectProductPics: {
-      get: function () {
+      get: function() {
         let pics = [];
         if (
           this.value.pic === undefined ||
@@ -279,7 +279,7 @@ export default {
         }
         return pics;
       },
-      set: function (newValue) {
+      set: function(newValue) {
         if (newValue == null || newValue.length === 0) {
           this.value.pic = null;
           this.value.albumPics = null;
@@ -295,19 +295,19 @@ export default {
             }
           }
         }
-      },
-    },
+      }
+    }
   },
   created() {
     this.getProductAttrCateList();
   },
   watch: {
-    productId: function (newValue) {
+    productId: function(newValue) {
       if (!this.isEdit) return;
       if (this.hasEditCreated) return;
       if (newValue === undefined || newValue == null || newValue === 0) return;
       this.handleEditCreated();
-    },
+    }
   },
   methods: {
     handleEditCreated() {
@@ -319,20 +319,20 @@ export default {
     },
     getProductAttrCateList() {
       let param = { pageNum: 1, pageSize: 100 };
-      fetchProductAttrCateList(param).then((response) => {
+      fetchProductAttrCateList(param).then(response => {
         this.productAttributeCategoryOptions = [];
         let list = response.data.list;
         for (let i = 0; i < list.length; i++) {
           this.productAttributeCategoryOptions.push({
             label: list[i].name,
-            value: list[i].id,
+            value: list[i].id
           });
         }
       });
     },
     getProductAttrList(type, cid) {
       let param = { pageNum: 1, pageSize: 100, type: type };
-      fetchProductAttrList(cid, param).then((response) => {
+      fetchProductAttrList(cid, param).then(response => {
         let list = response.data.list;
         if (type === 0) {
           this.selectProductAttr = [];
@@ -353,7 +353,7 @@ export default {
               handAddStatus: list[i].handAddStatus,
               inputList: list[i].inputList,
               values: values,
-              options: options,
+              options: options
             });
           }
           if (this.isEdit) {
@@ -373,7 +373,7 @@ export default {
               name: list[i].name,
               value: value,
               inputType: list[i].inputType,
-              inputList: list[i].inputList,
+              inputList: list[i].inputList
             });
           }
         }
@@ -445,7 +445,7 @@ export default {
         this.$message({
           message: "属性值不能为空",
           type: "warning",
-          duration: 1000,
+          duration: 1000
         });
         return;
       }
@@ -453,7 +453,7 @@ export default {
         this.$message({
           message: "属性值不能重复",
           type: "warning",
-          duration: 1000,
+          duration: 1000
         });
         return;
       }
@@ -475,7 +475,7 @@ export default {
       this.$confirm("刷新列表将导致sku信息重新生成，是否要刷新", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning",
+        type: "warning"
       }).then(() => {
         this.refreshProductAttrPics();
         this.refreshProductSkuList();
@@ -485,7 +485,7 @@ export default {
       this.$confirm("将同步第一个sku的价格到所有sku,是否继续", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning",
+        type: "warning"
       }).then(() => {
         if (
           this.value.skuStockList !== null &&
@@ -494,7 +494,7 @@ export default {
           let tempSkuList = [];
           tempSkuList = tempSkuList.concat(
             tempSkuList,
-            this.value.skuStockList,
+            this.value.skuStockList
           );
           let price = this.value.skuStockList[0].price;
           for (let i = 0; i < tempSkuList.length; i++) {
@@ -503,7 +503,7 @@ export default {
           this.value.skuStockList = [];
           this.value.skuStockList = this.value.skuStockList.concat(
             this.value.skuStockList,
-            tempSkuList,
+            tempSkuList
           );
         }
       });
@@ -512,7 +512,7 @@ export default {
       this.$confirm("将同步第一个sku的库存到所有sku,是否继续", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning",
+        type: "warning"
       }).then(() => {
         if (
           this.value.skuStockList !== null &&
@@ -521,7 +521,7 @@ export default {
           let tempSkuList = [];
           tempSkuList = tempSkuList.concat(
             tempSkuList,
-            this.value.skuStockList,
+            this.value.skuStockList
           );
           let stock = this.value.skuStockList[0].stock;
           let lowStock = this.value.skuStockList[0].lowStock;
@@ -532,7 +532,7 @@ export default {
           this.value.skuStockList = [];
           this.value.skuStockList = this.value.skuStockList.concat(
             this.value.skuStockList,
-            tempSkuList,
+            tempSkuList
           );
         }
       });
@@ -545,7 +545,7 @@ export default {
         let attr = this.selectProductAttr[0];
         for (let i = 0; i < attr.values.length; i++) {
           skuList.push({
-            spData: JSON.stringify([{ key: attr.name, value: attr.values[i] }]),
+            spData: JSON.stringify([{ key: attr.name, value: attr.values[i] }])
           });
         }
       } else if (this.selectProductAttr.length === 2) {
@@ -555,8 +555,8 @@ export default {
           if (attr1.values.length === 0) {
             skuList.push({
               spData: JSON.stringify([
-                { key: attr0.name, value: attr0.values[i] },
-              ]),
+                { key: attr0.name, value: attr0.values[i] }
+              ])
             });
             continue;
           }
@@ -565,7 +565,7 @@ export default {
             spData.push({ key: attr0.name, value: attr0.values[i] });
             spData.push({ key: attr1.name, value: attr1.values[j] });
             skuList.push({
-              spData: JSON.stringify(spData),
+              spData: JSON.stringify(spData)
             });
           }
         }
@@ -577,8 +577,8 @@ export default {
           if (attr1.values.length === 0) {
             skuList.push({
               spData: JSON.stringify([
-                { key: attr0.name, value: attr0.values[i] },
-              ]),
+                { key: attr0.name, value: attr0.values[i] }
+              ])
             });
             continue;
           }
@@ -588,7 +588,7 @@ export default {
               spData.push({ key: attr0.name, value: attr0.values[i] });
               spData.push({ key: attr1.name, value: attr1.values[j] });
               skuList.push({
-                spData: JSON.stringify(spData),
+                spData: JSON.stringify(spData)
               });
               continue;
             }
@@ -598,7 +598,7 @@ export default {
               spData.push({ key: attr1.name, value: attr1.values[j] });
               spData.push({ key: attr2.name, value: attr2.values[k] });
               skuList.push({
-                spData: JSON.stringify(spData),
+                spData: JSON.stringify(spData)
               });
             }
           }
@@ -641,7 +641,7 @@ export default {
         ) {
           this.value.productAttributeValueList.push({
             productAttributeId: attr.id,
-            value: this.getOptionStr(attr.options),
+            value: this.getOptionStr(attr.options)
           });
         }
       }
@@ -649,7 +649,7 @@ export default {
         let param = this.selectProductParam[i];
         this.value.productAttributeValueList.push({
           productAttributeId: param.id,
-          value: param.value,
+          value: param.value
         });
       }
     },
@@ -692,8 +692,8 @@ export default {
       this.mergeProductAttrValue();
       this.mergeProductAttrPics();
       this.$emit("nextStep");
-    },
-  },
+    }
+  }
 };
 </script>
 

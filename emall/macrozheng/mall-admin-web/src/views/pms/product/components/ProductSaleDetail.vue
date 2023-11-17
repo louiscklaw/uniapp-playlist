@@ -200,8 +200,8 @@ export default {
     value: Object,
     isEdit: {
       type: Boolean,
-      default: false,
-    },
+      default: false
+    }
   },
   data() {
     return {
@@ -209,21 +209,21 @@ export default {
       pickerOptions1: {
         disabledDate(time) {
           return time.getTime() < Date.now();
-        },
-      },
+        }
+      }
     };
   },
   created() {
     if (this.isEdit) {
       // this.handleEditCreated();
     } else {
-      fetchMemberLevelList({ defaultStatus: 0 }).then((response) => {
+      fetchMemberLevelList({ defaultStatus: 0 }).then(response => {
         let memberPriceList = [];
         for (let i = 0; i < response.data.length; i++) {
           let item = response.data[i];
           memberPriceList.push({
             memberLevelId: item.id,
-            memberLevelName: item.name,
+            memberLevelName: item.name
           });
         }
         this.value.memberPriceList = memberPriceList;
@@ -260,8 +260,8 @@ export default {
         } else {
           this.value.serviceIds = null;
         }
-      },
-    },
+      }
+    }
   },
   methods: {
     handleEditCreated() {
@@ -278,7 +278,7 @@ export default {
         productLadderList.push({
           count: 0,
           discount: 0,
-          price: 0,
+          price: 0
         });
       } else {
         productLadderList.splice(index, 1);
@@ -290,12 +290,12 @@ export default {
         productLadderList.push({
           count: 0,
           discount: 0,
-          price: 0,
+          price: 0
         });
       } else {
         this.$message({
           message: "最多只能添加三条",
-          type: "warning",
+          type: "warning"
         });
       }
     },
@@ -305,7 +305,7 @@ export default {
         fullReductionList.pop();
         fullReductionList.push({
           fullPrice: 0,
-          reducePrice: 0,
+          reducePrice: 0
         });
       } else {
         fullReductionList.splice(index, 1);
@@ -316,12 +316,12 @@ export default {
       if (fullReductionList.length < 3) {
         fullReductionList.push({
           fullPrice: 0,
-          reducePrice: 0,
+          reducePrice: 0
         });
       } else {
         this.$message({
           message: "最多只能添加三条",
-          type: "warning",
+          type: "warning"
         });
       }
     },
@@ -330,8 +330,8 @@ export default {
     },
     handleNext() {
       this.$emit("nextStep");
-    },
-  },
+    }
+  }
 };
 </script>
 

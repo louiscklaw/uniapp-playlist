@@ -53,8 +53,8 @@ export default {
     value: Object,
     isEdit: {
       type: Boolean,
-      default: false,
-    },
+      default: false
+    }
   },
   data() {
     return {
@@ -65,7 +65,7 @@ export default {
       //所有专题列表
       prefrenceAreaList: [],
       //专题左右标题
-      prefrenceAreaTitles: ["待选择", "已选择"],
+      prefrenceAreaTitles: ["待选择", "已选择"]
     };
   },
   created() {
@@ -75,7 +75,7 @@ export default {
   computed: {
     //选中的专题
     selectSubject: {
-      get: function () {
+      get: function() {
         let subjects = [];
         if (
           this.value.subjectProductRelationList == null ||
@@ -88,18 +88,18 @@ export default {
         }
         return subjects;
       },
-      set: function (newValue) {
+      set: function(newValue) {
         this.value.subjectProductRelationList = [];
         for (let i = 0; i < newValue.length; i++) {
           this.value.subjectProductRelationList.push({
-            subjectId: newValue[i],
+            subjectId: newValue[i]
           });
         }
-      },
+      }
     },
     //选中的优选
     selectPrefrenceArea: {
-      get: function () {
+      get: function() {
         let prefrenceAreas = [];
         if (
           this.value.prefrenceAreaProductRelationList == null ||
@@ -113,43 +113,43 @@ export default {
           i++
         ) {
           prefrenceAreas.push(
-            this.value.prefrenceAreaProductRelationList[i].prefrenceAreaId,
+            this.value.prefrenceAreaProductRelationList[i].prefrenceAreaId
           );
         }
         return prefrenceAreas;
       },
-      set: function (newValue) {
+      set: function(newValue) {
         this.value.prefrenceAreaProductRelationList = [];
         for (let i = 0; i < newValue.length; i++) {
           this.value.prefrenceAreaProductRelationList.push({
-            prefrenceAreaId: newValue[i],
+            prefrenceAreaId: newValue[i]
           });
         }
-      },
-    },
+      }
+    }
   },
   methods: {
     filterMethod(query, item) {
       return item.label.indexOf(query) > -1;
     },
     getSubjectList() {
-      fetchSubjectList().then((response) => {
+      fetchSubjectList().then(response => {
         let list = response.data;
         for (let i = 0; i < list.length; i++) {
           this.subjectList.push({
             label: list[i].title,
-            key: list[i].id,
+            key: list[i].id
           });
         }
       });
     },
     getPrefrenceAreaList() {
-      fetchPrefrenceAreaList().then((response) => {
+      fetchPrefrenceAreaList().then(response => {
         let list = response.data;
         for (let i = 0; i < list.length; i++) {
           this.prefrenceAreaList.push({
             label: list[i].name,
-            key: list[i].id,
+            key: list[i].id
           });
         }
       });
@@ -159,8 +159,8 @@ export default {
     },
     handleFinishCommit() {
       this.$emit("finishCommit", this.isEdit);
-    },
-  },
+    }
+  }
 };
 </script>
 
