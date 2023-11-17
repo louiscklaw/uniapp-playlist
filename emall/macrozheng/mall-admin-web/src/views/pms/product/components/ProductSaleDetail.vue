@@ -10,12 +10,15 @@
       <el-form-item label="赠送积分：">
         <el-input v-model="value.giftPoint"></el-input>
       </el-form-item>
+
       <el-form-item label="赠送成长值：">
         <el-input v-model="value.giftGrowth"></el-input>
       </el-form-item>
+
       <el-form-item label="积分购买限制：">
         <el-input v-model="value.usePointLimit"></el-input>
       </el-form-item>
+
       <el-form-item label="预告商品：">
         <el-switch
           v-model="value.previewStatus"
@@ -24,6 +27,7 @@
         >
         </el-switch>
       </el-form-item>
+
       <el-form-item label="商品上架：">
         <el-switch
           v-model="value.publishStatus"
@@ -32,6 +36,7 @@
         >
         </el-switch>
       </el-form-item>
+
       <el-form-item label="商品推荐：">
         <span style="margin-right: 10px">新品</span>
         <el-switch
@@ -48,6 +53,7 @@
         >
         </el-switch>
       </el-form-item>
+
       <el-form-item label="服务保证：">
         <el-checkbox-group v-model="selectServiceList">
           <el-checkbox :label="1">无忧退货</el-checkbox>
@@ -55,15 +61,19 @@
           <el-checkbox :label="3">免费包邮</el-checkbox>
         </el-checkbox-group>
       </el-form-item>
+
       <el-form-item label="详细页标题：">
         <el-input v-model="value.detailTitle"></el-input>
       </el-form-item>
+
       <el-form-item label="详细页描述：">
         <el-input v-model="value.detailDesc"></el-input>
       </el-form-item>
+
       <el-form-item label="商品关键字：">
         <el-input v-model="value.keywords"></el-input>
       </el-form-item>
+
       <el-form-item label="商品备注：">
         <el-input
           v-model="value.note"
@@ -71,6 +81,7 @@
           :autoSize="true"
         ></el-input>
       </el-form-item>
+
       <el-form-item label="选择优惠方式：">
         <el-radio-group v-model="value.promotionType" size="small">
           <el-radio-button :label="0">无优惠</el-radio-button>
@@ -80,6 +91,7 @@
           <el-radio-button :label="4">满减价格</el-radio-button>
         </el-radio-group>
       </el-form-item>
+
       <el-form-item v-show="value.promotionType === 1">
         <div>
           开始时间：
@@ -110,6 +122,7 @@
           ></el-input>
         </div>
       </el-form-item>
+
       <el-form-item v-show="value.promotionType === 2">
         <div
           v-for="(item, index) in value.memberPriceList"
@@ -119,6 +132,7 @@
           <el-input v-model="item.memberPrice" style="width: 200px"></el-input>
         </div>
       </el-form-item>
+
       <el-form-item v-show="value.promotionType === 3">
         <el-table :data="value.productLadderList" style="width: 80%" border>
           <el-table-column label="数量" align="center" width="120">
@@ -147,6 +161,7 @@
           </el-table-column>
         </el-table>
       </el-form-item>
+
       <el-form-item v-show="value.promotionType === 4">
         <el-table
           :data="value.productFullReductionList"
@@ -179,6 +194,7 @@
           </el-table-column>
         </el-table>
       </el-form-item>
+
       <el-form-item style="text-align: center">
         <el-button size="medium" @click="handlePrev"
           >上一步，填写商品信息</el-button

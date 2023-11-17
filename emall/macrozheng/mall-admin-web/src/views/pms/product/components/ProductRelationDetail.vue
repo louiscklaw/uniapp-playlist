@@ -19,6 +19,7 @@
         >
         </el-transfer>
       </el-form-item>
+
       <el-form-item label="关联优选：">
         <el-transfer
           style="display: inline-block"
@@ -31,6 +32,7 @@
         >
         </el-transfer>
       </el-form-item>
+
       <el-form-item style="text-align: center">
         <el-button size="medium" @click="handlePrev"
           >上一步，填写商品属性</el-button

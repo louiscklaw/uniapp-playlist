@@ -37,6 +37,7 @@
                 class="littleMarginLeft"
               ></el-checkbox>
             </el-checkbox-group>
+
             <div v-else>
               <el-checkbox-group v-model="selectProductAttr[idx].values">
                 <div
@@ -53,6 +54,7 @@
                   </el-button>
                 </div>
               </el-checkbox-group>
+
               <el-input
                 v-model="addProductAttrValue"
                 style="width: 160px; margin-left: 10px"
@@ -81,31 +83,37 @@
               {{ getProductSkuSp(scope.row, index) }}
             </template>
           </el-table-column>
+
           <el-table-column label="销售价格" width="100" align="center">
             <template slot-scope="scope">
               <el-input v-model="scope.row.price"></el-input>
             </template>
           </el-table-column>
+
           <el-table-column label="促销价格" width="100" align="center">
             <template slot-scope="scope">
               <el-input v-model="scope.row.promotionPrice"></el-input>
             </template>
           </el-table-column>
+
           <el-table-column label="商品库存" width="80" align="center">
             <template slot-scope="scope">
               <el-input v-model="scope.row.stock"></el-input>
             </template>
           </el-table-column>
+
           <el-table-column label="库存预警值" width="80" align="center">
             <template slot-scope="scope">
               <el-input v-model="scope.row.lowStock"></el-input>
             </template>
           </el-table-column>
+
           <el-table-column label="SKU编号" width="160" align="center">
             <template slot-scope="scope">
               <el-input v-model="scope.row.skuCode"></el-input>
             </template>
           </el-table-column>
+
           <el-table-column label="操作" width="80" align="center">
             <template slot-scope="scope">
               <el-button
@@ -116,18 +124,21 @@
             </template>
           </el-table-column>
         </el-table>
+
         <el-button
           type="primary"
           style="margin-top: 20px"
           @click="handleRefreshProductSkuList"
           >刷新列表
         </el-button>
+
         <el-button
           type="primary"
           style="margin-top: 20px"
           @click="handleSyncProductSkuPrice"
           >同步价格
         </el-button>
+
         <el-button
           type="primary"
           style="margin-top: 20px"
@@ -135,6 +146,7 @@
           >同步库存
         </el-button>
       </el-form-item>
+
       <el-form-item label="属性图片：" v-if="hasAttrPic">
         <el-card shadow="never" class="cardBg">
           <div v-for="(item, index) in selectProductAttrPics">
@@ -174,9 +186,11 @@
           </div>
         </el-card>
       </el-form-item>
+
       <el-form-item label="商品相册：">
         <multi-upload v-model="selectProductPics"></multi-upload>
       </el-form-item>
+
       <el-form-item label="商品详情：">
         <el-tabs v-model="activeHtmlName" type="card">
           <el-tab-pane label="电脑端详情" name="pc">
@@ -186,6 +200,7 @@
               v-model="value.detailHtml"
             ></tinymce>
           </el-tab-pane>
+
           <el-tab-pane label="移动端详情" name="mobile">
             <tinymce
               :width="595"
@@ -195,6 +210,7 @@
           </el-tab-pane>
         </el-tabs>
       </el-form-item>
+
       <el-form-item style="text-align: center">
         <el-button size="medium" @click="handlePrev"
           >上一步，填写商品促销</el-button

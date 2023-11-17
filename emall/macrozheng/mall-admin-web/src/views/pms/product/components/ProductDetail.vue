@@ -6,6 +6,7 @@
       <el-step title="填写商品属性"></el-step>
       <el-step title="选择商品关联"></el-step>
     </el-steps>
+
     <product-info-detail
       v-show="showStatus[0]"
       v-model="productParam"
@@ -13,6 +14,7 @@
       @nextStep="nextStep"
     >
     </product-info-detail>
+
     <product-sale-detail
       v-show="showStatus[1]"
       v-model="productParam"
@@ -21,6 +23,7 @@
       @prevStep="prevStep"
     >
     </product-sale-detail>
+
     <product-attr-detail
       v-show="showStatus[2]"
       v-model="productParam"
@@ -29,6 +32,7 @@
       @prevStep="prevStep"
     >
     </product-attr-detail>
+
     <product-relation-detail
       v-show="showStatus[3]"
       v-model="productParam"
