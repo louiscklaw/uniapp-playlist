@@ -1,8 +1,8 @@
-version: '3'
+version: "3"
 
 services:
   mall-admin-web:
-    image: node:14-buster
+    image: node:16-buster
     ports:
       - 8090:8090
     volumes:
@@ -13,7 +13,7 @@ services:
     deploy:
       resources:
         reservations:
-          cpus: '0.01'
+          cpus: "0.01"
           memory: 32M
 
   mall-app-web:
@@ -29,5 +29,6 @@ services:
     deploy:
       resources:
         reservations:
-          cpus: '0.01'
+          cpus: "0.01"
           memory: 32M
+
