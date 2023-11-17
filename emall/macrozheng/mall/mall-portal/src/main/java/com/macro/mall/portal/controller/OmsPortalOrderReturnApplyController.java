@@ -19,20 +19,23 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 @Api(tags = "OmsPortalOrderReturnApplyController")
-@Tag(name = "OmsPortalOrderReturnApplyController",description = "退货申请管理")
+@Tag(name = "OmsPortalOrderReturnApplyController", description = "退货申请管理")
 @RequestMapping("/returnApply")
 public class OmsPortalOrderReturnApplyController {
-    @Autowired
-    private OmsPortalOrderReturnApplyService returnApplyService;
 
-    @ApiOperation("申请退货")
-    @RequestMapping(value = "/create", method = RequestMethod.POST)
-    @ResponseBody
-    public CommonResult create(@RequestBody OmsOrderReturnApplyParam returnApply) {
-        int count = returnApplyService.create(returnApply);
-        if (count > 0) {
-            return CommonResult.success(count);
-        }
-        return CommonResult.failed();
+  @Autowired
+  private OmsPortalOrderReturnApplyService returnApplyService;
+
+  @ApiOperation("申请退货")
+  @RequestMapping(value = "/create", method = RequestMethod.POST)
+  @ResponseBody
+  public CommonResult create(
+    @RequestBody OmsOrderReturnApplyParam returnApply
+  ) {
+    int count = returnApplyService.create(returnApply);
+    if (count > 0) {
+      return CommonResult.success(count);
     }
+    return CommonResult.failed();
+  }
 }
