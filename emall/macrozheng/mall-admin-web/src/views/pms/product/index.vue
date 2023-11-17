@@ -688,6 +688,7 @@ export default {
     },
     handleShowLog(index, row) {
       console.log("handleShowLog", row);
+      this.$router.push({ path: "/pms/logProduct", query: { id: row.id } });
     },
     updatePublishStatus(publishStatus, ids) {
       let params = new URLSearchParams();
