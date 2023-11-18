@@ -12,6 +12,8 @@ services:
     command: ./entry.sh
     deploy:
       resources:
+        limits:
+          cpus: "2"
         reservations:
           cpus: "0.01"
           memory: 32M
@@ -28,6 +30,8 @@ services:
 
     deploy:
       resources:
+        limits:
+          cpus: "2"
         reservations:
           cpus: "0.01"
           memory: 32M
