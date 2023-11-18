@@ -48,6 +48,10 @@
 - 资源列表
 
 
+## components
+  - mall-portal
+    - http://localhost:8085/swagger-ui/
+
 ## Main website
   - https://www.macrozheng.com
   - demo
