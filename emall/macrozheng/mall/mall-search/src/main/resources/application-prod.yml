@@ -15,11 +15,8 @@ spring:
 
   data:
     elasticsearch:
-      repositories:
-        enabled: true
-
-  elasticsearch:
-    uris: es:9200
+      rest:
+        uris: http://localhost:9200
 
 logging:
   file:
