@@ -52,16 +52,23 @@
   - mall-portal
     - http://localhost:8085/swagger-ui/
 
+  - mall-admin
+    - http://localhost:8080/swagger-ui/
+
+  - mall-search (8081)
+    - http://localhost:8081/swagger-ui/
+
+
 ## Main website
   - https://www.macrozheng.com
   - demo
     - 小程序: https://www.macrozheng.com/app
 
+
 ## setup procedure
   - setup rabbitmq
     - website: http://192.168.10.232:15672
-    - user: mall
-    - pass: mall
+    - mall:mall 
     - virtualhost: mall
 
   - setup  MinIO
@@ -88,14 +95,15 @@
   - 使用Maven插件为SpringBoot应用构建Docker镜像 
     - https://juejin.cn/post/6844903870603198472
 
+## test a/c
   - admin
     - http://localhost:8090
       - username: admin
       - password: macro123
 
   - portal (mall-app-web)
-    - 
-
+      - username: kee
+      - password: 123456
 
 ## Backend
   - Spring root
