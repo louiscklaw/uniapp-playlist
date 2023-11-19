@@ -228,11 +228,11 @@ services:
     external_links:
       - elasticsearch:es #可以用es这个域名访问elasticsearch服务
       - mysql:db #可以用db这个域名访问mysql服务
-    depends_on:
-      - elasticsearch
 
-  # # adminer:
-  # #   image: adminer
-  # #   restart: always
-  # #   ports:
-  # #     - 8082:8080
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8082:8080
+    external_links:
+      - mysql:db #可以用db这个域名访问mysql服务
