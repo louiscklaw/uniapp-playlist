@@ -135,16 +135,16 @@ $font_size_h6: $font_size_h1 * 0.4;
     }
   }
 
+  $button_gap: 1rem;
   .footer {
     margin-top: 1rem;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    gap: 1rem;
 
     .button-container {
       background-color: $base-light-gray;
-      width: calc(100vw / 2 - 0.5rem);
+      width: calc((100vw - 3 * $button_gap) / 2);
 
       border-radius: 1rem;
 

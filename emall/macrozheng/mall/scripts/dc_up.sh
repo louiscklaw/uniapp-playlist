@@ -33,8 +33,10 @@ mkdir -p ./mydata/redis/data
 
 # ln -s docker-compose-env.yml docker-compose.yml
 docker compose -f docker-compose-env.yml pull
-
 docker compose -f docker-compose-env.yml build
+
+echo -e "\033[31m re-up docker compose ? \033[0m"
+read -p "Press Enter to continue..."
 
 docker compose -f docker-compose-env.yml up -d --force-recreate --remove-orphans
 # docker compose -f docker-compose-env.yml up -d mysql

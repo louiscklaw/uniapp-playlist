@@ -29,7 +29,7 @@ export default {
     },
     isCollapse() {
       return !this.sidebar.opened;
-    },
-  },
+    }
+  }
 };
 </script>

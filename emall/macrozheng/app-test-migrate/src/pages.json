@@ -102,7 +102,8 @@
 					"bounce": "none",
 					"titleNView": {
 						"type": "transparent",
-						"buttons": [{
+						"buttons": [
+							{
 								"fontSrc": "/static/yticon.ttf",
 								"text": "\ue60f",
 								"fontSize": "24",
@@ -122,7 +123,50 @@
 					}
 				}
 			}
-		}, 
+		},
+		{
+			"path": "pages/demo/demo",
+			"style": {
+				"navigationBarTitleText": "我的",
+				// #ifdef MP
+				"navigationStyle": "custom",
+				// #endif
+				"app-plus": {
+					"bounce": "none",
+					"titleNView": {
+						"type": "transparent"
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/demo/coffee-shop/home",
+			"style": {
+				"navigationBarTitleText": "我的",
+				// #ifdef MP
+				"navigationStyle": "custom",
+				// #endif
+				"app-plus": {
+					"bounce": "none",
+					"titleNView": {
+						"type": "transparent"
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/demo/coffee-shop/drinkDetail",
+			"style": {
+				"navigationBarTitleText": "商品詳情",
+				// #ifdef MP
+				"navigationStyle": "custom",
+				// #endif
+				"app-plus": {
+					"bounce": "none",
+					"titleNView": {}
+				}
+			}
+		},
 		{
 			"path": "pages/order/order",
 			"style": {
@@ -315,6 +359,12 @@
 				"text": "分类"
 			},
 			{
+				"pagePath": "pages/demo/demo",
+				"iconPath": "static/tab-my.png",
+				"selectedIconPath": "static/tab-my-current.png",
+				"text": "範列"
+			},
+			{
 				"pagePath": "pages/cart/cart",
 				"iconPath": "static/tab-cart.png",
 				"selectedIconPath": "static/tab-cart-current.png",
@@ -324,7 +374,8 @@
 				"pagePath": "pages/user/user",
 				"iconPath": "static/tab-my.png",
 				"selectedIconPath": "static/tab-my-current.png",
-				"text": "我的"
+				"text": "我的",
+				"redDotColor": "1"
 			}
 		]
 	}

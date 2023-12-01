@@ -6,3 +6,4 @@
 
 - elastic search ??
 
+- mall-search 連去 elastic search

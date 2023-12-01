@@ -68,7 +68,7 @@
 ## setup procedure
   - setup rabbitmq
     - website: http://192.168.10.232:15672
-    - mall:mall 
+    - mall:mall
     - virtualhost: mall
 
   - setup  MinIO
@@ -76,7 +76,7 @@
     - minioadmin:minioadmin
 
     - config path: /workspace/uniapp-playlist/emall/macrozheng/mall/mall-admin/src/main/resources/application-prod.yml
-
+max
   - elastic search
     - `sysctl -w vm.max_map_count=262144`
 
@@ -92,7 +92,7 @@
   - https://github.com/YunaiV/ruoyi-vue-pro
     - https://doc.iocoder.cn/feature/
 
-  - 使用Maven插件为SpringBoot应用构建Docker镜像 
+  - 使用Maven插件为SpringBoot应用构建Docker镜像
     - https://juejin.cn/post/6844903870603198472
 
 ## test a/c
@@ -112,28 +112,31 @@
   - Vue
 
 
-hello default 
+hello default
   - minimum using node 18
 
-source code of mall 
+source code of mall
   - minimum using node ??
     - node-sass (node14 confirmed working in other project)
-  
+
 
 uniapp and scss
   - uniapp wants nodejs 20
   - node-scss wants nodejs 14
-  
+
   - nodejs 20
     - not working
       - blame: Error: Cannot find module 'node-sass'
 
   - nodejs 18
     - not working
+
   - nodejs 16
+
   - nodejs 14
     - cannot run uniapp, but it should be possible to run node-sass
     - ERROR  TypeError: Cannot convert undefined or null to object
+
   - nodejs 12
 
 

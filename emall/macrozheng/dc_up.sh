@@ -12,6 +12,9 @@ popd
 docker compose pull
 docker compose build
 
+echo -e "\033[31m re-up docker compose ? \033[0m"
+read -p "Press Enter to continue..."
+
 docker compose kill
 docker compose down
 
